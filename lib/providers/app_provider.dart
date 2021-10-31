@@ -5,7 +5,12 @@ import 'package:flutter/material.dart';
 class AppProvider extends ChangeNotifier {
   bool isArabic = false;
   bool isDark = false;
+  bool isVisible = true;
   AppProvider(){
+    notifyListeners();
+  }
+  changeIsisVisibleVar(){
+    isVisible = !isVisible;
     notifyListeners();
   }
   updateLanguage({bool fromShared}) async {

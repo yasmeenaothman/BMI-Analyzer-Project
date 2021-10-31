@@ -1,13 +1,63 @@
+import 'package:bmi_project/shared_widgets/defualt_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class LoginPage extends StatelessWidget {
   static String routeName = 'LoginPage';
   @override
   Widget build(BuildContext context) {
+    /*print(MediaQuery.of(context).size.width);
+    print(MediaQuery.of(context).size.height);*/
     return Scaffold(
       appBar: AppBar(
-        title: Text('BMI').tr(),
-        titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
+        title: Text('BMI',style: Theme.of(context).appBarTheme.titleTextStyle,).tr(),
+      ),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            SizedBox(height: 110.h,),
+            Text('WB',style: Theme.of(context).textTheme.bodyText1).tr(),
+            SizedBox(height: 15.h,),
+            Text('If',style: Theme.of(context).textTheme.bodyText2).tr(),
+            SizedBox(height: 80.h,),
+            Padding(
+              padding: const EdgeInsets.only(left: 15,right: 50),
+              child: DefaultTextField(
+                hint: 'username',
+                onSave: (v){},
+                validate: (v){},
+              )
+            ),
+            SizedBox(height: 35.h,),
+            Padding(
+                padding: const EdgeInsets.only(left: 15,right: 50),
+                child: DefaultTextField(
+                  isPass: true,
+                  hint: 'pass',
+                  onSave: (v){},
+                  validate: (v){},
+                )
+            ),
+            SizedBox(height: 90.h,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: ElevatedButton(
+                onPressed: (){},
+                child: Text('login').tr(),
+              ),
+            ),
+            SizedBox(height: 35.h,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('notAccount',style: Theme.of(context).textTheme.headline1).tr(),
+                Text('signUp',style: Theme.of(context).textTheme.headline2).tr(),
+              ],
+            ),
+            SizedBox(height: 20.h,),
+          ],
+        ),
       ),
     );
   }
