@@ -1,6 +1,7 @@
 import 'package:bmi_project/helpers/route_helper.dart';
 import 'package:bmi_project/helpers/theme_helper.dart';
 import 'package:bmi_project/modules/auth_pages/login_page.dart';
+import 'package:bmi_project/modules/auth_pages/signUp_page.dart';
 import 'package:bmi_project/modules/splash_page.dart';
 import 'package:bmi_project/providers/app_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
           navigatorKey: RouteHelper.routeHelper.navKey,
           routes: {
             LoginPage.routeName: (context) => LoginPage(),
+            SignUpPage.routeName: (context) => SignUpPage(),
           },
           ///I will do the custom dark theme soon///
           theme: Provider.of<AppProvider>(context).isDark?ThemeData.dark():ThemeHelper.themeHelper.lightTheme,

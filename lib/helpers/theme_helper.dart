@@ -21,7 +21,7 @@ class ThemeHelper {
         headline6: TextStyle(fontWeight: FontWeight.w700, fontSize: 20.sp),
         bodyText1: TextStyle(
           fontWeight: FontWeight.w900,
-          fontSize: 27.sp,
+          fontSize: 30.sp,
           color: HexColor('#178BDA')
         ),
         bodyText2: TextStyle(

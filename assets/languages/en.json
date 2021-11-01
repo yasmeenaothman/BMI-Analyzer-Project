@@ -7,5 +7,14 @@
   "pass": "Password",
   "login": "LOG IN",
   "notAccount": "You Don't Have An Account ? ",
-  "signUp": "Sign Up"
+  "signUp": "Sign Up",
+  "createAccount": "Create New Account",
+  "ifNot": "If you do not already have an account",
+  "name": "Name",
+  "email": "E-Mail",
+  "re_pass": "Re-Password",
+  "createBtn": "CREATE",
+  "haveAccount": "You Have An Account ? ",
+  "LogTextBtn": "Login",
+  "completeInfo": "Complete Your Information"
 }
