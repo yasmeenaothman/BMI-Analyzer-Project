@@ -25,5 +25,8 @@
   "dOfB": "Date Of Birth",
   "saveDataBtn": "Save Data",
   "kg": "kg",
-  "cm": "cm"
+  "cm": "cm",
+  "newRecord": "New Record",
+  "date": "Date",
+  "time": "Time"
 }

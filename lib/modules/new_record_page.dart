@@ -1,17 +1,14 @@
-import 'package:bmi_project/modules/auth_pages/complete_info/shared_radio.dart';
 import 'package:bmi_project/providers/app_provider.dart';
 import 'package:bmi_project/shared_widgets/shared_container.dart';
 import 'package:bmi_project/shared_widgets/shared_container_with_text.dart';
 import 'package:bmi_project/shared_widgets/shared_text.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-enum Gender { male, female }
-class CompleteInfoPage extends StatelessWidget {
-  static String routeName = 'CompleteInfoPage';
+class NewRecordPage extends StatelessWidget {
+  static String routeName = 'NewRecordPage';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,18 +26,17 @@ class CompleteInfoPage extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 100.h,
+                    height: 50.h,
                   ),
                   Text(
-                    'completeInfo',
+                    'newRecord',
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1
-                        .merge(TextStyle(height: 1.4)),
+                        .bodyText1,
                     textAlign: TextAlign.center,
                   ).tr(),
                   SizedBox(
-                    height: 60.h,
+                    height: 100.h,
                   ),
                   GridView(
                     shrinkWrap: true,
@@ -51,28 +47,6 @@ class CompleteInfoPage extends StatelessWidget {
                         mainAxisSpacing: 35,
                         mainAxisExtent: 25),
                     children: [
-                      DefaultText(text: 'gender'),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          DefaultRadio(
-                            value: Gender.male,
-                            text: 'male',
-                            onTap: () {
-                              provider.changeGenderType(Gender.male);
-                            },
-                          ),
-                          Expanded(
-                            child: DefaultRadio(
-                              value: Gender.female,
-                              text: 'female',
-                              onTap: () {
-                                provider.changeGenderType(Gender.female);
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
                       DefaultText(text: 'weight'),
                       Padding(
                         padding: const EdgeInsetsDirectional.only(start: 3),
@@ -89,15 +63,30 @@ class CompleteInfoPage extends StatelessWidget {
                           isWeight: false,
                         ),
                       ),
-                      DefaultText(text: 'dOfB'),
+                      DefaultText(text: 'date'),
                       Padding(
-                        padding: const EdgeInsetsDirectional.only(start: 3),
-                        child: DefaultContainer(),
+                        padding: const EdgeInsetsDirectional.only(start: 3,end: 22),
+                        child: GestureDetector(
+                            onTap: () async{
+                              await provider.pickDate(context);
+                            },
+                            child: DefaultContainer(text: provider.date,)
+                        ),
+                      ),
+                      DefaultText(text: 'time'),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.only(start: 3,end: 22),
+                        child: GestureDetector(
+                          child: DefaultContainer(text: provider.time,),
+                          onTap: () async{
+                            await provider.pickTime(context);
+                          },
+                        ),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 100.h,
+                    height: 80.h,
                   ),
                   ElevatedButton(
                     onPressed: () {

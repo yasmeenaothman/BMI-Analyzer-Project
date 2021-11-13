@@ -1,4 +1,5 @@
 import 'package:bmi_project/helpers/route_helper.dart';
+import 'package:bmi_project/modules/auth_pages/complete_info/complete_info_page.dart';
 import 'package:bmi_project/modules/auth_pages/login_page.dart';
 import 'package:bmi_project/shared_widgets/defualt_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,10 @@ class SignUpPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 35),
               child: ElevatedButton(
-                onPressed: (){},
+                onPressed: (){
+                  ///auth in firebase
+                  RouteHelper.routeHelper.goToPageWithReplacement(CompleteInfoPage.routeName);
+                },
                 child: Text('createBtn').tr(),
               ),
             ),

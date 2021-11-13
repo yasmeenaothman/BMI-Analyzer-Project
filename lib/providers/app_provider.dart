@@ -2,6 +2,7 @@ import 'package:bmi_project/helpers/shared_prefe_helper.dart';
 import 'package:bmi_project/helpers/theme_helper.dart';
 import 'package:bmi_project/modules/auth_pages/complete_info/complete_info_page.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AppProvider extends ChangeNotifier {
   bool isArabic = false;
@@ -10,6 +11,8 @@ class AppProvider extends ChangeNotifier {
   double weight = 30;
   double length = 120;
   Gender groupValue = Gender.male;
+  String date = '';
+  String time = '';
   AppProvider(){
     notifyListeners();
   }
@@ -47,6 +50,24 @@ class AppProvider extends ChangeNotifier {
       isArabic = !isArabic;
       await SharedPreferenceHelper.sharedHelper.putBoolean('isArabic', isArabic);
     }
+    notifyListeners();
+  }
+
+  pickDate(BuildContext context) async {
+    date = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime((DateTime.now().year) - 1),
+            lastDate: DateTime((DateTime.now().year) + 1))
+        .then((value) => value == null ? '' : DateFormat.yMMMd().format(value));
+    notifyListeners();
+  }
+
+  pickTime(BuildContext context) async {
+    time = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    ).then((value) => value == null ? '' : value.format(context));
     notifyListeners();
   }
 }
