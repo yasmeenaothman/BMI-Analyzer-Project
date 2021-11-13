@@ -16,5 +16,14 @@
   "createBtn": "CREATE",
   "haveAccount": "You Have An Account ? ",
   "LogTextBtn": "Login",
-  "completeInfo": "Complete Your Information"
+  "completeInfo": "Complete Your Information",
+  "gender": "Gender",
+  "male": "Male",
+  "female": "Female",
+  "weight": "Weight",
+  "length": "Length",
+  "dOfB": "Date Of Birth",
+  "saveDataBtn": "Save Data",
+  "kg": "kg",
+  "cm": "cm"
 }

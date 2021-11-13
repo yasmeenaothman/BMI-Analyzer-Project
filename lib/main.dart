@@ -1,5 +1,6 @@
 import 'package:bmi_project/helpers/route_helper.dart';
 import 'package:bmi_project/helpers/theme_helper.dart';
+import 'package:bmi_project/modules/auth_pages/complete_info/complete_info_page.dart';
 import 'package:bmi_project/modules/auth_pages/login_page.dart';
 import 'package:bmi_project/modules/auth_pages/signUp_page.dart';
 import 'package:bmi_project/modules/splash_page.dart';
@@ -40,10 +41,11 @@ class MyApp extends StatelessWidget {
           routes: {
             LoginPage.routeName: (context) => LoginPage(),
             SignUpPage.routeName: (context) => SignUpPage(),
+            CompleteInfoPage.routeName: (context) => CompleteInfoPage(),
           },
           ///I will do the custom dark theme soon///
           theme: Provider.of<AppProvider>(context).isDark?ThemeData.dark():ThemeHelper.themeHelper.lightTheme,
-          home: SplashPage());
+          home: CompleteInfoPage());
   }
 }
 

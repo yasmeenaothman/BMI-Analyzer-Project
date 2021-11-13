@@ -16,5 +16,14 @@
   "createBtn": "انشاء",
   "haveAccount": "هل لديك حساب ؟",
   "LogTextBtn": "تسجيل الدخول",
-  "completeInfo": "أكمل معلوماتك"
+  "completeInfo": "أكمل معلوماتك",
+  "gender": "الجنس",
+  "male": "ذكر",
+  "female": "أنثى",
+  "weight": "الوزن",
+  "length": "الطول",
+  "dOfB": "تاريخ الميلاد",
+  "saveDataBtn": "حفظ المعلومات",
+  "kg": "كغم",
+  "cm": "سم"
 }

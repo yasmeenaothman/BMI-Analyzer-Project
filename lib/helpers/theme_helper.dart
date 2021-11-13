@@ -21,7 +21,7 @@ class ThemeHelper {
         headline6: TextStyle(fontWeight: FontWeight.w700, fontSize: 20.sp),
         bodyText1: TextStyle(
           fontWeight: FontWeight.w900,
-          fontSize: 30.sp,
+          fontSize: 29.sp,
           color: HexColor('#178BDA')
         ),
         bodyText2: TextStyle(
@@ -38,8 +38,14 @@ class ThemeHelper {
             color: Colors.black
         ),
         headline2:  TextStyle(
-            fontSize: 14.sp,
+            fontSize: 12.sp,
             color: HexColor('#42A5F5')
+        ),
+        headline3:  TextStyle(
+          fontSize: 18.sp,
+          color: HexColor('#42A5F5'),
+          fontWeight: FontWeight.w700
+
         ),
       ),
     inputDecorationTheme: InputDecorationTheme(
@@ -66,6 +72,9 @@ class ThemeHelper {
         minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity,35.h)),
         padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(vertical: 12))
       )
+    ),
+    radioTheme: RadioThemeData(
+      fillColor: MaterialStateProperty.all(HexColor('#42A5F5')),
     )
   );
 }
