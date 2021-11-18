@@ -28,5 +28,24 @@
   "cm": "سم",
   "newRecord": "حقل جديد",
   "date": "التاريخ",
-  "time": "الوقت"
+  "time": "الوقت",
+  "addFoodDetails": "أضف تفاصيل الطعام",
+  "name": "الاسم",
+  "category": "الفئة",
+  "calory": "السعرات",
+  "cal": "سعر /غرام",
+  "photo": "الصورة",
+  "saveFoodDetails": "حفظ",
+  "fruits": "فواكه",
+  "fish": "أسماك",
+  "carbohydrate": "كربوهيدرات",
+  "vegetables": "خضروات",
+  "dairy": "ألبان",
+  "grains": "مكسرات",
+  "protein": "بروتينات",
+  "oils": "زيوت",
+  "noImage": "لم تحمل صورة بعد",
+  "editFoodDetails": "تعديل تفاصيل الطعام",
+  "updateFoodDetails": "تعديل"
+
 }

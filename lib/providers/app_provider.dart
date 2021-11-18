@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:bmi_project/helpers/shared_prefe_helper.dart';
 import 'package:bmi_project/helpers/theme_helper.dart';
 import 'package:bmi_project/modules/auth_pages/complete_info/complete_info_page.dart';
+import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class AppProvider extends ChangeNotifier {
@@ -13,7 +17,26 @@ class AppProvider extends ChangeNotifier {
   Gender groupValue = Gender.male;
   String date = '';
   String time = '';
+  String selectedCategory;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController caloryController = TextEditingController();
+  File imageFile;
+  List<String> dropItems = [
+    'fruits',
+    'fish',
+    'carbohydrate',
+    'vegetables',
+    'dairy',
+    'grains',
+    'protein',
+    'oils',
+  ];
   AppProvider(){
+    selectedCategory = dropItems.first;
+    notifyListeners();
+  }
+  changeSelectedCategory(String value){
+    this.selectedCategory = value;
     notifyListeners();
   }
   changeIsisVisibleVar(){
@@ -69,5 +92,12 @@ class AppProvider extends ChangeNotifier {
       initialTime: TimeOfDay.now(),
     ).then((value) => value == null ? '' : value.format(context));
     notifyListeners();
+  }
+  pickImage() async{
+    XFile file = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if(file != null){
+      imageFile = File(file.path);
+      notifyListeners();
+    }
   }
 }

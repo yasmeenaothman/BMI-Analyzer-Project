@@ -3,6 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
+	<project root>NSPhotoLibraryUsageDescription</project root>
+	<project root>NSCameraUsageDescription</project root>
+	<project root>NSMicrophoneUsageDescription</project root>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>

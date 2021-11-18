@@ -10,6 +10,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'modules/food details/add_food_details_page.dart';
+import 'modules/food details/edit_food_details_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -43,10 +46,13 @@ class MyApp extends StatelessWidget {
             LoginPage.routeName: (context) => LoginPage(),
             SignUpPage.routeName: (context) => SignUpPage(),
             CompleteInfoPage.routeName: (context) => CompleteInfoPage(),
+            NewRecordPage.routeName: (context) => NewRecordPage(),
+            AddFoodDetailsPage.routeName: (context) => AddFoodDetailsPage(),
+            EditFoodDetailsPage.routeName: (context) => EditFoodDetailsPage(),
           },
           ///I will do the custom dark theme soon///
           theme: Provider.of<AppProvider>(context).isDark?ThemeData.dark():ThemeHelper.themeHelper.lightTheme,
-          home: NewRecordPage());
+          home: EditFoodDetailsPage());
   }
 }
 
