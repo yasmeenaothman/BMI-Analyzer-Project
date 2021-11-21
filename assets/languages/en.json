@@ -47,5 +47,7 @@
   "oils": "Oils",
   "noImage": "No Photo Uploaded Yet!",
   "editFoodDetails": "Edit Food Details",
-  "updateFoodDetails": "Update"
+  "updateFoodDetails": "Update",
+  "foodList": "Food List",
+  "editBtn": "Edit"
 }

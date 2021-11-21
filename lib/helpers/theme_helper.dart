@@ -47,6 +47,18 @@ class ThemeHelper {
           fontWeight: FontWeight.w700
 
         ),
+        headline5:  TextStyle(
+          fontSize: 12.sp,
+          color: Colors.white,
+          fontWeight: FontWeight.w700
+
+        ),
+        subtitle1:  TextStyle(
+          fontSize: 16.sp,
+          color: Colors.black,
+          fontWeight: FontWeight.w500
+
+        ),
       ),
     inputDecorationTheme: InputDecorationTheme(
         enabledBorder: UnderlineInputBorder(
@@ -75,6 +87,7 @@ class ThemeHelper {
     ),
     radioTheme: RadioThemeData(
       fillColor: MaterialStateProperty.all(HexColor('#42A5F5')),
-    )
+    ),
+
   );
 }

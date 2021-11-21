@@ -46,6 +46,8 @@
   "oils": "زيوت",
   "noImage": "لم تحمل صورة بعد",
   "editFoodDetails": "تعديل تفاصيل الطعام",
-  "updateFoodDetails": "تعديل"
+  "updateFoodDetails": "تعديل",
+  "foodList": "قائمة الطعام",
+  "editBtn": "تعديل"
 
 }
