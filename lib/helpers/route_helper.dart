@@ -10,6 +10,9 @@ class RouteHelper{
   goToPageWithReplacement(String routeName){
     navKey.currentState.pushReplacementNamed(routeName);
   }
+  goToPageAndRemoveUntil(String routeName){
+    navKey.currentState.pushNamedAndRemoveUntil(routeName, (route) => false);
+  }
   goBackFromPage(){
     navKey.currentState.pop();
   }

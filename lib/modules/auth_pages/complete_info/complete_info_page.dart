@@ -1,17 +1,23 @@
+import 'package:bmi_project/helpers/route_helper.dart';
+import 'package:bmi_project/modles/user_data.dart';
 import 'package:bmi_project/modules/auth_pages/complete_info/shared_radio.dart';
 import 'package:bmi_project/providers/app_provider.dart';
+import 'package:bmi_project/providers/auth_provider.dart';
 import 'package:bmi_project/shared_widgets/shared_container.dart';
 import 'package:bmi_project/shared_widgets/shared_container_with_text.dart';
 import 'package:bmi_project/shared_widgets/shared_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+
+import '../../home_page.dart';
 
 enum Gender { male, female }
 class CompleteInfoPage extends StatelessWidget {
   static String routeName = 'CompleteInfoPage';
+  //here update user data and add to fireStore
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,8 +28,8 @@ class CompleteInfoPage extends StatelessWidget {
           ).tr(),
         ),
         //Single Child
-        body: Consumer<AppProvider>(
-          builder: (context, provider, x) => SingleChildScrollView(
+        body: Consumer2<AppProvider,AuthProvider>(
+          builder: (context, provider,authProvider, x) => SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Column(
@@ -92,7 +98,11 @@ class CompleteInfoPage extends StatelessWidget {
                       DefaultText(text: 'dOfB'),
                       Padding(
                         padding: const EdgeInsetsDirectional.only(start: 3),
-                        child: DefaultContainer(),
+                        child: GestureDetector(
+                            onTap: () async {
+                              await provider.pickDateOfBirth(context);
+                            },
+                            child: DefaultContainer(text: provider.dateOfBirth,)),
                       ),
                     ],
                   ),
@@ -102,6 +112,17 @@ class CompleteInfoPage extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       ///save info in firebase and transform to home(current state.....)
+                      //  +احسبي ال  BMI وضيفي الى جدول الحالات
+                      UserData userData = UserData(
+                        id: authProvider.userData.id,
+                        name: authProvider.userData.name,
+                        email: authProvider.userData.email,
+                        gender: provider.groupValue.toString(),
+                        dateOfBirth: provider.dateOfBirth
+                      );
+                      authProvider.updateUserData(userData);
+                      authProvider.addUserTOFireStore();
+                      RouteHelper.routeHelper.goToPageWithReplacement(HomePage.routeName);
                     },
                     child: Text('saveDataBtn').tr(),
                   ),

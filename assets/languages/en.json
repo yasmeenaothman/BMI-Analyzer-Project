@@ -49,5 +49,21 @@
   "editFoodDetails": "Edit Food Details",
   "updateFoodDetails": "Update",
   "foodList": "Food List",
-  "editBtn": "Edit"
+  "editBtn": "Edit",
+  "weakPass": "The password provided is too weak",
+  "existEmail": "The account already exists for that email.",
+  "invalidEmail": "Invalid email.",
+  "noUser": "No user found for that email",
+  "wrongPassword": "Wrong password provided for that user.",
+  "fillAllFields": "please,Fill All Fields.",
+  "passNotMatch": "re-Password not match Password",
+  "noUserName": "User Name Not Found",
+  "hi": "Hi",
+  "addFood": "Add Food",
+  "addRecord": "Add Record",
+  "viewFood": "View Food",
+  "logout": "Logout",
+  "addedSuccessfully": "Food successfully added",
+  "updatedSuccessfully": "Food successfully updated",
+  "deletedSuccessfully": "Food successfully deleted"
 }

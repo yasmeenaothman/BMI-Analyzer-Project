@@ -5,6 +5,7 @@ import 'package:bmi_project/helpers/theme_helper.dart';
 import 'package:bmi_project/modules/auth_pages/complete_info/complete_info_page.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -17,11 +18,11 @@ class AppProvider extends ChangeNotifier {
   Gender groupValue = Gender.male;
   String date = '';
   String time = '';
-  String selectedCategory;
+  String dateOfBirth = '';
+  /*String selectedCategory;
   TextEditingController nameController = TextEditingController();
-  TextEditingController caloryController = TextEditingController();
-  File imageFile;
-  List<String> dropItems = [
+  TextEditingController caloryController = TextEditingController();*/
+  /*List<String> dropItems = [
     'fruits',
     'fish',
     'carbohydrate',
@@ -30,15 +31,8 @@ class AppProvider extends ChangeNotifier {
     'grains',
     'protein',
     'oils',
-  ];
-  AppProvider(){
-    selectedCategory = dropItems.first;
-    notifyListeners();
-  }
-  changeSelectedCategory(String value){
-    this.selectedCategory = value;
-    notifyListeners();
-  }
+  ];*/
+  AppProvider(){}
   changeIsisVisibleVar(){
     isVisible = !isVisible;
     notifyListeners();
@@ -77,12 +71,22 @@ class AppProvider extends ChangeNotifier {
   }
 
   pickDate(BuildContext context) async {
+
     date = await showDatePicker(
             context: context,
             initialDate: DateTime.now(),
             firstDate: DateTime((DateTime.now().year) - 1),
             lastDate: DateTime((DateTime.now().year) + 1))
         .then((value) => value == null ? '' : DateFormat.yMMMd().format(value));
+    notifyListeners();
+  }
+  pickDateOfBirth(BuildContext context) async {
+    dateOfBirth = await showDatePicker(
+        context: context,
+        initialDate: DateTime((DateTime.now().year) - 1),
+        firstDate: DateTime(1960),
+        lastDate: DateTime((DateTime.now().year)))
+        .then((value) => value == null ? '' : DateFormat.y().format(value));
     notifyListeners();
   }
 
@@ -93,11 +97,5 @@ class AppProvider extends ChangeNotifier {
     ).then((value) => value == null ? '' : value.format(context));
     notifyListeners();
   }
-  pickImage() async{
-    XFile file = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if(file != null){
-      imageFile = File(file.path);
-      notifyListeners();
-    }
-  }
+
 }

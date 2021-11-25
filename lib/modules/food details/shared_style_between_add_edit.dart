@@ -1,4 +1,9 @@
+import 'package:bmi_project/helpers/AuthHelper.dart';
+import 'package:bmi_project/helpers/route_helper.dart';
+import 'package:bmi_project/modles/food_details.dart';
+import 'package:bmi_project/modules/home_page.dart';
 import 'package:bmi_project/providers/app_provider.dart';
+import 'package:bmi_project/providers/auth_provider.dart';
 import 'package:bmi_project/shared_widgets/shared_text.dart';
 import 'package:bmi_project/shared_widgets/text_field_with_style.dart';
 import 'package:easy_localization/src/public_ext.dart';
@@ -8,7 +13,6 @@ import 'package:provider/provider.dart';
 
 class SharedAddAndEditStyle extends StatelessWidget {
   bool isAdd;
-
   SharedAddAndEditStyle({
     @required this.isAdd,
   });
@@ -23,8 +27,9 @@ class SharedAddAndEditStyle extends StatelessWidget {
           ).tr(),
         ),
         //Single Child
-        body: Consumer<AppProvider>(
-          builder: (context, provider, x) => SingleChildScrollView(
+        body: Consumer2<AppProvider, AuthProvider>(
+          builder: (context, provider, authProvider, x) =>
+              SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsetsDirectional.only(start: 40, end: 60),
@@ -55,7 +60,7 @@ class SharedAddAndEditStyle extends StatelessWidget {
                     children: [
                       DefaultText(text: 'name'),
                       TextFieldWithStyle(
-                        controller: provider.nameController,
+                        controller: authProvider.nameFoodController,
                         isAdd: isAdd,
                       ),
                       DefaultText(text: 'category'),
@@ -72,8 +77,8 @@ class SharedAddAndEditStyle extends StatelessWidget {
                               isExpanded: true,
                               iconEnabledColor: Theme.of(context).primaryColor,
                               iconSize: 26,
-                              value: provider.selectedCategory,
-                              items: provider.dropItems
+                              value: authProvider.selectedCategory,
+                              items: authProvider.dropItems
                                   .map(
                                     (e) => DropdownMenuItem<String>(
                                       child: Text(
@@ -87,7 +92,7 @@ class SharedAddAndEditStyle extends StatelessWidget {
                                   )
                                   .toList(),
                               onChanged: (v) {
-                                provider.changeSelectedCategory(v);
+                                authProvider.changeSelectedCategory(v);
                               },
                             ),
                             Padding(
@@ -109,7 +114,7 @@ class SharedAddAndEditStyle extends StatelessWidget {
                         children: [
                           Expanded(
                               child: TextFieldWithStyle(
-                            controller: provider.caloryController,
+                            controller: authProvider.caloryController,
                             isAdd: isAdd,
                           )),
                           Padding(
@@ -136,16 +141,21 @@ class SharedAddAndEditStyle extends StatelessWidget {
                     decoration: BoxDecoration(
                         border:
                             Border.all(color: Theme.of(context).primaryColor)),
-                    child: provider.imageFile == null
-                        ? Center(
-                            child: Text(
-                              'noImage'.tr(),
-                              style: Theme.of(context).textTheme.headline1,
-                            ),
-                          )
+                    child: authProvider.imageFile == null&&authProvider.updateFile == null
+                        ? isAdd
+                            ? Center(
+                                child: Text(
+                                  'noImage'.tr(),
+                                  style: Theme.of(context).textTheme.headline1,
+                                ),
+                              )
+                            : Image.network(
+                                authProvider.selectedFood.foodPhotoUrl,
+                                fit: BoxFit.cover,
+                              )
                         : Image.file(
-                            provider.imageFile,
-                            fit: isAdd ? BoxFit.cover : BoxFit.contain,
+                            isAdd?authProvider.imageFile:authProvider.updateFile,
+                            fit: BoxFit.cover,
                           ),
                   ),
                   SizedBox(
@@ -156,7 +166,9 @@ class SharedAddAndEditStyle extends StatelessWidget {
                       Expanded(
                         child: ElevatedButton(
                           onPressed: () {
-                            provider.pickImage();
+                            isAdd
+                                ? authProvider.pickImage()
+                                : authProvider.pickUpdateImage();
                           },
                           child: Text('uploadPhoto').tr(),
                         ),
@@ -165,8 +177,21 @@ class SharedAddAndEditStyle extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsetsDirectional.only(start: 35),
                           child: ElevatedButton(
-                            onPressed: () {
-                              /// for save/update details
+                            onPressed: () async {
+                              FoodDetails foodDetails =
+                                  await authProvider.check(authProvider.imageFile,isAdd);
+                              if (foodDetails != null) {
+                                isAdd
+                                    ? authProvider
+                                        .addFoodTOFireStore(foodDetails)
+                                    : authProvider
+                                        .updateFoodTOFireStore(foodDetails);
+                                RouteHelper.routeHelper.goToPageAndRemoveUntil(
+                                    HomePage.routeName);
+                              } else {
+                                AuthHelper.authHelper
+                                    .showToast('fillAllFields'.tr());
+                              }
                             },
                             child: Text(isAdd
                                     ? 'saveFoodDetails'

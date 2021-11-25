@@ -48,6 +48,21 @@
   "editFoodDetails": "تعديل تفاصيل الطعام",
   "updateFoodDetails": "تعديل",
   "foodList": "قائمة الطعام",
-  "editBtn": "تعديل"
-
+  "editBtn": "تعديل",
+  "weakPass": "كلمة المرور ضعيفة جدا",
+  "existEmail": "عذرا الحساب موجود مسبقا",
+  "invalidEmail": "الايميل غير مسموح به",
+  "noUser": "عذرا لا يوجد مسنحدم خاص بهذا الايميل",
+  "wrongPassword": "كلمة المرور غير صحيحة",
+  "fillAllFields": "رجاء،املأ كافة الحقول",
+  "passNotMatch": "كلمتان المرور غير متطابقتان",
+  "noUserName": "اسم المستخدم غير موجود",
+  "hi": "مرحبا",
+  "addFood": "اضافة الطعام",
+  "addRecord": "اضافة حقل",
+  "viewFood": "عرض الأطعمة",
+  "logout": "تسجيل الخروج",
+  "addedSuccessfully": "تم اضافة الطعام بنجاح",
+  "updatedSuccessfully": "تم تعديل الطعام بنجاح",
+  "deletedSuccessfully": "تم حذف الطعام بنجاح"
 }

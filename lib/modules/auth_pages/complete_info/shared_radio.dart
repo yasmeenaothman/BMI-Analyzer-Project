@@ -27,7 +27,7 @@ class DefaultRadio extends StatelessWidget {
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 groupValue: Provider.of<AppProvider>(context,listen: false).groupValue,
                 onChanged: (v) {
-                  Provider.of<AppProvider>(context).changeGenderType(v);
+                  Provider.of<AppProvider>(context,listen: false).changeGenderType(v);
                 }),
           ),
           Text(text.tr(),

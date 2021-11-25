@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "728538159240",
+    "project_id": "bmi-analyzer-c618c",
+    "storage_bucket": "bmi-analyzer-c618c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728538159240:android:ca8ea253616f31eb7ca73d",
+        "android_client_info": {
+          "package_name": "com.yasmeenOthmanSh.bmi_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "728538159240-88bstlmia6gmgbj4ged3p2edqbn0nplc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yasmeenOthmanSh.bmi_project",
+            "certificate_hash": "93996b81becb1e472a5ccfe5469fa8b7b6b94049"
+          }
+        },
+        {
+          "client_id": "728538159240-cqjkd1hhhlbat4op7iq2ld0m6kul7p7i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzBdJayKhMMcHO9nbhlmrJo4vZUUBODbI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "728538159240-cqjkd1hhhlbat4op7iq2ld0m6kul7p7i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

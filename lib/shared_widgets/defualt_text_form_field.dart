@@ -4,19 +4,22 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:provider/provider.dart';
 class DefaultTextField extends StatelessWidget {
   String hint;
-  Function onSave;
-  Function validate;
+  /*Function onSave;
+  Function validate;*/
+  TextEditingController controller;
   bool isPass;
   DefaultTextField({
     @required this.hint,
-    @required this.onSave,
-    @required this.validate,
+    @required this.controller,
+    /*@required this.onSave,
+    @required this.validate,*/
     this.isPass = false,
   });
   @override
   Widget build(BuildContext context) {
     return Consumer<AppProvider>(
-      builder: (context,provider,x)=>TextFormField(
+      builder: (context,provider,x)=>TextField(
+        controller: controller,
         keyboardType: TextInputType.text,
         obscureText: isPass&&!provider.isVisible,
         style: TextStyle(color: Colors.black),
@@ -37,8 +40,8 @@ class DefaultTextField extends StatelessWidget {
             ),
           ):null
         ),
-        onSaved: onSave,
-        validator: validate,
+       /* onSaved: onSave,
+        validator: validate,*/
       ),
     );
   }

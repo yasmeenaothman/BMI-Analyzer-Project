@@ -1,6 +1,9 @@
 import 'dart:ui';
 
+import 'package:bmi_project/helpers/route_helper.dart';
+import 'package:bmi_project/modules/food%20details/edit_food_details_page.dart';
 import 'package:bmi_project/providers/app_provider.dart';
+import 'package:bmi_project/providers/auth_provider.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,8 +22,8 @@ class FoodListPage extends StatelessWidget {
           ).tr(),
         ),
         //Single Child
-        body: Consumer<AppProvider>(
-          builder: (context, provider, x) => SingleChildScrollView(
+        body: Consumer2<AppProvider,AuthProvider>(
+          builder: (context, provider, authProvider, x) => SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -37,7 +40,7 @@ class FoodListPage extends StatelessWidget {
                   SizedBox(
                     height: 60.h
                   ),
-                  ListView.separated(
+                  authProvider.foodLists!=null?ListView.separated(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) => Column(
@@ -52,8 +55,10 @@ class FoodListPage extends StatelessWidget {
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Image.asset(
-                                  'assets/images/Logo.png',
+                                Expanded(
+                                  child: Image.network(
+                                    authProvider.foodLists[index].foodPhotoUrl,
+                                  ),
                                 ),
                                 VerticalDivider(
                                   thickness: 1.2,
@@ -65,10 +70,9 @@ class FoodListPage extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     mainAxisSize: MainAxisSize.min,
-                                    /// take the text fe=rom food class
                                     children: [
                                       Text(
-                                        'Salamon',
+                                        authProvider.foodLists[index].name,
                                         style:
                                             Theme.of(context).textTheme.subtitle1,
                                         overflow: TextOverflow.ellipsis,
@@ -77,7 +81,7 @@ class FoodListPage extends StatelessWidget {
                                         height: 3.h,
                                       ),
                                       Text(
-                                        'Fish',
+                                        authProvider.foodLists[index].category,
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline4
@@ -89,7 +93,7 @@ class FoodListPage extends StatelessWidget {
                                         height: 3.h,
                                       ),
                                       Text(
-                                        '22 ' + 'cal'.tr(),
+                                          authProvider.foodLists[index].calory.toString() + 'cal'.tr(),
                                         style: Theme.of(context)
                                             .textTheme
                                             .headline2
@@ -108,7 +112,11 @@ class FoodListPage extends StatelessWidget {
                                       Padding(
                                         padding: const EdgeInsetsDirectional.only(end: 3,),
                                         child: ElevatedButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            authProvider.changeSelectedFood(authProvider.foodLists[index]);
+                                            authProvider.fillFields();
+                                            RouteHelper.routeHelper.goToPage(EditFoodDetailsPage.routeName);
+                                          },
                                           child: Text(
                                             'editBtn',
                                             style: Theme.of(context)
@@ -131,7 +139,7 @@ class FoodListPage extends StatelessWidget {
                                               start: 40, top: 5),
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              print('yyy');
+                                              authProvider.deleteFoodFromFireStore(authProvider.foodLists[index].name);
                                             },
                                             child: Center(
                                               child: Icon(
@@ -166,8 +174,8 @@ class FoodListPage extends StatelessWidget {
                     separatorBuilder: (context, index) => SizedBox(
                       height: 40.h,
                     ),
-                    itemCount: 15,
-                  ),
+                    itemCount: authProvider.foodLists.length,
+                  ):CircularProgressIndicator()
                 ],
               ),
             ),
