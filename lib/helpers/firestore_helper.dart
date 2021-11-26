@@ -10,7 +10,6 @@ class FireStoreHelper {
   static FireStoreHelper fireStoreHelper = FireStoreHelper._();
   FirebaseFirestore firebaseFireStore = FirebaseFirestore.instance;
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-
   addUserTOFireStore(UserData userData) async {
     await firebaseFireStore
         .collection("Users")

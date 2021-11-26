@@ -4,11 +4,12 @@ import 'package:bmi_project/helpers/AuthHelper.dart';
 import 'package:bmi_project/helpers/firestorage_helper.dart';
 import 'package:bmi_project/helpers/firestore_helper.dart';
 import 'package:bmi_project/helpers/route_helper.dart';
+import 'package:bmi_project/modles/bmi_status.dart';
 import 'package:bmi_project/modles/food_details.dart';
 import 'package:bmi_project/modles/user_data.dart';
 import 'package:bmi_project/modules/auth_pages/complete_info/complete_info_page.dart';
 import 'package:bmi_project/modules/auth_pages/login_page.dart';
-import 'package:bmi_project/modules/home_page.dart';
+import 'package:bmi_project/modules/home_page/home_page.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class AuthProvider extends ChangeNotifier{
   File imageFile;
   File updateFile;
   String foodImageUrlFromStorage;
+  BMIStatus currentStatus;
   List<FoodDetails> foodLists = [];
   List<String> dropItems = [
     'fruits',
@@ -41,6 +43,7 @@ class AuthProvider extends ChangeNotifier{
   ];
   AuthProvider(){
     selectedCategory = dropItems.first;
+    getCurrentUser();
     notifyListeners();
   }
   changeSelectedCategory(String value){
@@ -97,6 +100,7 @@ class AuthProvider extends ChangeNotifier{
 
   getCurrentUser(){
     user= AuthHelper.authHelper.getCurrentUser();
+    getUserFromFireStore();
     notifyListeners();
   }
   cleanControllers() {
@@ -125,6 +129,10 @@ class AuthProvider extends ChangeNotifier{
   }
   addUserTOFireStore() async{
     await FireStoreHelper.fireStoreHelper.addUserTOFireStore(userData);
+  }
+  getUserFromFireStore() async{
+    userData = await FireStoreHelper.fireStoreHelper.getUserFromFireStore(user.uid);
+    notifyListeners();
   }
   uploadFile() async{
     foodImageUrlFromStorage = await FireStorageHelper.fireStorageHelper.uploadFile(imageFile);

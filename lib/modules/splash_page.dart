@@ -34,7 +34,7 @@ class SplashPage extends StatelessWidget {
                       decoration: TextDecoration.underline
                   ),
                 ).tr(),
-                onPressed: (){
+                onPressed: () {
                   provider.checkIsLogin();
                 },
               ),

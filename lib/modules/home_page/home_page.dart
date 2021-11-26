@@ -1,6 +1,7 @@
 import 'package:bmi_project/helpers/route_helper.dart';
 import 'package:bmi_project/modules/food%20details/add_food_details_page.dart';
 import 'package:bmi_project/modules/food_list_page.dart';
+import 'package:bmi_project/modules/home_page/item_list_style.dart';
 import 'package:bmi_project/modules/new_record_page.dart';
 import 'package:bmi_project/providers/app_provider.dart';
 import 'package:bmi_project/providers/auth_provider.dart';
@@ -11,6 +12,7 @@ import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatelessWidget {
   static String routeName = 'HomePage';
@@ -26,22 +28,59 @@ class HomePage extends StatelessWidget {
         //Single Child
         body: Consumer2<AppProvider,AuthProvider>(
           builder: (context, provider,authProvider, x) => SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Column(
                 children: [
                   SizedBox(
-                    height: 50.h,
+                    height: 30.h,
                   ),
                   Text(
-                    'hi',
+                    'hi'.tr()+', '+toBeginningOfSentenceCase(authProvider.userData.name),
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText1,
+                        .subtitle1.merge(TextStyle(fontSize: 25,fontWeight: FontWeight.w600)),
                     textAlign: TextAlign.center,
-                  ).tr(),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   SizedBox(
-                    height: 100.h,
+                    height: 30.h,
+                  ),
+                  Align(child: DefaultText(text: 'currentStatus'),alignment: AlignmentDirectional.topStart,),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  //authProvider.currentStatus.status in below text
+                  DefaultContainer(text: '',height: 50.h,radius: 5,),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  Align(child: DefaultText(text: 'oldStatus'),alignment: AlignmentDirectional.topStart,),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height / 3,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Theme.of(context).primaryColor,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsetsDirectional.only(top: 20,start: 35,end: 35,),
+                      child: ListView.separated(
+                        physics: BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: (context,index)=>ItemListStyle(),
+                        separatorBuilder: (context,index)=>SizedBox(
+                          height: 15.h,
+                        ),
+                        itemCount: 4,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30.h,
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.min,
@@ -54,21 +93,21 @@ class HomePage extends StatelessWidget {
                           child: Text('addFood').tr(),
                         ),
                       ),
-                      SizedBox(
-                        width: 20.h,
-                      ),
                       Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            RouteHelper.routeHelper.goToPage(NewRecordPage.routeName);
-                          },
-                          child: Text('addRecord').tr(),
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.only(start: 25),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              RouteHelper.routeHelper.goToPage(NewRecordPage.routeName);
+                            },
+                            child: Text('addRecord').tr(),
+                          ),
                         ),
                       ),
                     ],
                   ),
                   SizedBox(
-                    height: 20.h,
+                    height: 15.h,
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -78,16 +117,11 @@ class HomePage extends StatelessWidget {
                     child: Text('viewFood').tr(),
                   ),
                   SizedBox(
-                    height: 50.h,
+                    height: 20.h,
                   ),
                   TextButton(
                     child: Text('logout',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                          color: Colors.black,
-                          decoration: TextDecoration.underline
-                      ),
+                      style: Theme.of(context).textTheme.headline1.merge(TextStyle(decoration: TextDecoration.underline))
                     ).tr(),
                     onPressed: (){
                       authProvider.logout();

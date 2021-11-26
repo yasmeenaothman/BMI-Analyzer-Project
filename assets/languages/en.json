@@ -65,5 +65,7 @@
   "logout": "Logout",
   "addedSuccessfully": "Food successfully added",
   "updatedSuccessfully": "Food successfully updated",
-  "deletedSuccessfully": "Food successfully deleted"
+  "deletedSuccessfully": "Food successfully deleted",
+  "currentStatus": "Current Status",
+  "oldStatus": "Old Status"
 }

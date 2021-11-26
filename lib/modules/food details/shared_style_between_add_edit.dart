@@ -1,7 +1,7 @@
 import 'package:bmi_project/helpers/AuthHelper.dart';
 import 'package:bmi_project/helpers/route_helper.dart';
 import 'package:bmi_project/modles/food_details.dart';
-import 'package:bmi_project/modules/home_page.dart';
+import 'package:bmi_project/modules/home_page/home_page.dart';
 import 'package:bmi_project/providers/app_provider.dart';
 import 'package:bmi_project/providers/auth_provider.dart';
 import 'package:bmi_project/shared_widgets/shared_text.dart';

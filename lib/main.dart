@@ -16,7 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'modules/food details/add_food_details_page.dart';
 import 'modules/food details/edit_food_details_page.dart';
-import 'modules/home_page.dart';
+import 'modules/home_page/home_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();

@@ -4,9 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class DefaultContainer extends StatelessWidget {
   double height;
   String text;
+  double radius;
   DefaultContainer({
     this.height = 28,
     this.text,
+    this.radius = 0,
   });
   @override
   Widget build(BuildContext context) {
@@ -18,6 +20,7 @@ class DefaultContainer extends StatelessWidget {
             style: Theme.of(context).textTheme.headline2),
       ),
       decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(radius),
           border: Border.all(color: Theme.of(context).primaryColor)
       ),
     );

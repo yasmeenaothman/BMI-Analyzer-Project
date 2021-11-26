@@ -4,13 +4,14 @@ class BMIStatus {
   String userId;
   String height;
   String weight;
-  double status;
+  String status;
   String date;
   String time;
   BMIStatus({
     @required this.userId,
     @required this.height,
     @required this.weight,
+    //call the method that calculate the status
     @required this.status,
     @required this.date,
     @required this.time,
