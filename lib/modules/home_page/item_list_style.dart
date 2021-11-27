@@ -24,7 +24,7 @@ class ItemListStyle extends StatelessWidget {
                       child: Center(
                     child: Text(
                       '20/10/2020',
-                      style: Theme.of(context).textTheme.headline1,
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                   )),
                   Divider(
@@ -35,7 +35,7 @@ class ItemListStyle extends StatelessWidget {
                   Expanded(
                       child: Text(
                     'Normal',
-                    style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.subtitle2,
                   ))
                 ],
               ),
@@ -56,7 +56,7 @@ class ItemListStyle extends StatelessWidget {
                       child: Center(
                     child: Text(
                       '60 ' + 'kg'.tr(),
-                      style: Theme.of(context).textTheme.headline1,
+                      style: Theme.of(context).textTheme.subtitle2,
                     ),
                   )),
                   Divider(
@@ -66,7 +66,7 @@ class ItemListStyle extends StatelessWidget {
                   Expanded(
                       child: Text(
                     '170 ' + 'cm'.tr(),
-                    style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.subtitle2,
                   ))
                 ],
               ),

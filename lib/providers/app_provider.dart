@@ -12,27 +12,18 @@ import 'package:intl/intl.dart';
 class AppProvider extends ChangeNotifier {
   bool isArabic = false;
   bool isDark = false;
-  bool isVisible = true;
+  bool isVisible = false;
   double weight = 30;
   double length = 120;
   Gender groupValue = Gender.male;
   String date = '';
   String time = '';
   String dateOfBirth = '';
-  /*String selectedCategory;
-  TextEditingController nameController = TextEditingController();
-  TextEditingController caloryController = TextEditingController();*/
-  /*List<String> dropItems = [
-    'fruits',
-    'fish',
-    'carbohydrate',
-    'vegetables',
-    'dairy',
-    'grains',
-    'protein',
-    'oils',
-  ];*/
-  AppProvider(){}
+
+  AppProvider(){
+    updateLanguage(fromShared: SharedPreferenceHelper.sharedHelper.getBoolean("isArabic"));
+    updateTheme(fromShared: SharedPreferenceHelper.sharedHelper.getBoolean("isDark"));
+  }
   changeIsisVisibleVar(){
     isVisible = !isVisible;
     notifyListeners();
@@ -69,7 +60,16 @@ class AppProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
-
+  updateTheme({bool fromShared}) async {
+    if(fromShared!=null){
+      isDark = fromShared;
+    }
+    else{
+      isDark = !isDark;
+      await SharedPreferenceHelper.sharedHelper.putBoolean('isDark', isDark);
+    }
+    notifyListeners();
+  }
   pickDate(BuildContext context) async {
 
     date = await showDatePicker(
@@ -86,7 +86,7 @@ class AppProvider extends ChangeNotifier {
         initialDate: DateTime((DateTime.now().year) - 1),
         firstDate: DateTime(1960),
         lastDate: DateTime((DateTime.now().year)))
-        .then((value) => value == null ? '' : DateFormat.y().format(value));
+        .then((value) => value == null ?'' : DateFormat.y().format(value));
     notifyListeners();
   }
 

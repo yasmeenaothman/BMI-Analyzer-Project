@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:bmi_project/helpers/AuthHelper.dart';
 import 'package:bmi_project/helpers/firestorage_helper.dart';
@@ -29,8 +30,9 @@ class AuthProvider extends ChangeNotifier{
   File imageFile;
   File updateFile;
   String foodImageUrlFromStorage;
-  BMIStatus currentStatus;
   List<FoodDetails> foodLists = [];
+  List<BMIStatus> statuses = [];
+  BMIStatus currentStatus;
   List<String> dropItems = [
     'fruits',
     'fish',
@@ -100,7 +102,10 @@ class AuthProvider extends ChangeNotifier{
 
   getCurrentUser(){
     user= AuthHelper.authHelper.getCurrentUser();
-    getUserFromFireStore();
+    if(user!=null){
+      getUserFromFireStore();
+      //getAllBMIStatus();
+    }
     notifyListeners();
   }
   cleanControllers() {
@@ -158,6 +163,11 @@ class AuthProvider extends ChangeNotifier{
     await getAllFoods();
     AuthHelper.authHelper.showToast('addedSuccessfully'.tr());
   }
+  addBMIStatusTOFireStore(BMIStatus bmiStatus) async{
+    await FireStoreHelper.fireStoreHelper.addBMIStatusTOFireStore(bmiStatus);
+    await getAllBMIStatus();
+    AuthHelper.authHelper.showToast('addStatus'.tr());
+  }
   updateFoodTOFireStore(FoodDetails foodDetails) async{
     await FireStoreHelper.fireStoreHelper.updateFoodTOFireStore(foodDetails);
     await cleanFields();
@@ -173,7 +183,11 @@ class AuthProvider extends ChangeNotifier{
     await getAllFoods();
     AuthHelper.authHelper.showToast('deletedSuccessfully'.tr());
   }
-
+  getAllBMIStatus() async{
+    statuses = await FireStoreHelper.fireStoreHelper.getAllBMIStatus(user.uid);
+    currentStatus = statuses.last;
+    notifyListeners();
+  }
   Future<FoodDetails> fillFoodInfo(bool isAdd) async {
     String imageUrl;
     if (updateFile != null) {
@@ -224,5 +238,148 @@ class AuthProvider extends ChangeNotifier{
     else{
       return null;
     }
+  }
+  double calculateBMIValue(UserData user,double weight,double height){
+    double percentage;
+    int age = DateTime.now().year - int.parse(user.dateOfBirth);
+    if(age>=2 && age<=10){
+      percentage = 70/100;
+    }
+    else if(age>10 && age<=20 && user.gender =='male'){
+      percentage = 90/100;
+    }
+    else if(age>10 && age<=20 && user.gender =='female'){
+      percentage = 80/100;
+    }
+    else if(age>20){
+      percentage = 100/100;
+    }
+    return (weight/pow(height/100, 2))* percentage ;
+  }
+  String calculateBMIStatus(UserData user,double weight,double height){
+    String bmiStatus;
+    double bmiValue = calculateBMIValue(user,weight,height);
+    // these status write them in en, ar
+    if(bmiValue < 18.5){
+      bmiStatus = 'UnderWeight';
+    }
+    if(bmiValue >= 18.5 && bmiValue< 25){
+      bmiStatus = 'Normal';
+    }
+    if(bmiValue >= 25 && bmiValue< 30){
+      bmiStatus = 'OverWeight';
+    }
+    if(bmiValue >30){
+      bmiStatus = 'Obesity';
+    }
+    return bmiStatus;
+  }
+  String changeStatus(){
+    String changeStatus;
+    BMIStatus lastStatus = statuses.last;
+    BMIStatus beforeLastStatus = statuses[statuses.length-2];
+    double bmiValueLastStatus = calculateBMIValue(userData,lastStatus.weight,lastStatus.height);
+    double bmiValueBeforeLastStatus = calculateBMIValue(userData,beforeLastStatus.weight,beforeLastStatus.height);
+    double difference = bmiValueLastStatus - bmiValueBeforeLastStatus;
+    // these status write them in en, ar
+    if(difference<-1){
+      if(currentStatus.status =='UnderWeight'){
+        changeStatus = 'So Bad';
+      }
+      if(currentStatus.status =='Normal'){
+        changeStatus = 'So Bad';
+      }
+      if(currentStatus.status =='OverWeight'){
+        changeStatus = 'Be Careful';
+      }
+      if(currentStatus.status =='Obesity'){
+        changeStatus = 'Be Careful';
+      }
+    }
+    else if(difference>=-1 && difference <-0.6){
+      if(currentStatus.status =='UnderWeight'){
+        changeStatus = 'So Bad';
+      }
+      if(currentStatus.status =='Normal'){
+        changeStatus = 'Be Careful';
+      }
+      if(currentStatus.status =='OverWeight'){
+        changeStatus = 'Go Ahead';
+      }
+      if(currentStatus.status =='Obesity'){
+        changeStatus = 'Go Ahead';
+      }
+    }
+    else if(difference>=-0.6 && difference <-0.3){
+      if(currentStatus.status =='UnderWeight'){
+        changeStatus = 'So Bad';
+      }
+      if(currentStatus.status =='Normal'){
+        changeStatus = 'Be Careful';
+      }
+      if(currentStatus.status =='OverWeight'){
+        changeStatus = 'Still Good';
+      }
+      if(currentStatus.status =='Obesity'){
+        changeStatus = 'Little Changes';
+      }
+    }
+    else if(difference>=-0.3 && difference <0){
+      if(currentStatus.status =='UnderWeight'){
+        changeStatus = 'Little Changes';
+      }
+      if(currentStatus.status =='Normal'){
+        changeStatus = 'Little Changes';
+      }
+      if(currentStatus.status =='OverWeight'){
+        changeStatus = 'Little Changes';
+      }
+      if(currentStatus.status =='Obesity'){
+        changeStatus = 'Little Changes';
+      }
+    }
+    else if(difference>=0.3 && difference <0.6){
+      if(currentStatus.status =='UnderWeight'){
+        changeStatus = 'Still Good';
+      }
+      if(currentStatus.status =='Normal'){
+        changeStatus = 'Be Careful';
+      }
+      if(currentStatus.status =='OverWeight'){
+        changeStatus = 'Be Careful';
+      }
+      if(currentStatus.status =='Obesity'){
+        changeStatus = 'So Bad';
+      }
+    }
+    else if(difference>=0.6 && difference <1){
+      if(currentStatus.status =='UnderWeight'){
+        changeStatus = 'Go Ahead';
+      }
+      if(currentStatus.status =='Normal'){
+        changeStatus = 'Be Careful';
+      }
+      if(currentStatus.status =='OverWeight'){
+        changeStatus = 'So Bad';
+      }
+      if(currentStatus.status =='Obesity'){
+        changeStatus = 'So Bad';
+      }
+    }
+    else if(difference>=1){
+      if(currentStatus.status =='UnderWeight'){
+        changeStatus = 'Go Ahead';
+      }
+      if(currentStatus.status =='Normal'){
+        changeStatus = 'Be Careful';
+      }
+      if(currentStatus.status =='OverWeight'){
+        changeStatus = 'So Bad';
+      }
+      if(currentStatus.status =='Obesity'){
+        changeStatus = 'So Bad';
+      }
+    }
+    return changeStatus;
   }
 }

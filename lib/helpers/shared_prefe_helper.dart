@@ -12,6 +12,6 @@ class SharedPreferenceHelper{
     print('is put in sharedPreference? $isPut');
   }
   bool getBoolean(String key) {
-    return sharedPreferences.getBool(key);
+    return sharedPreferences.getBool(key)??false;
   }
 }

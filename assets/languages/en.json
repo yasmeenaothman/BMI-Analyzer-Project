@@ -67,5 +67,6 @@
   "updatedSuccessfully": "Food successfully updated",
   "deletedSuccessfully": "Food successfully deleted",
   "currentStatus": "Current Status",
-  "oldStatus": "Old Status"
+  "oldStatus": "Old Status",
+  "addStatus": "New Status successfully added"
 }

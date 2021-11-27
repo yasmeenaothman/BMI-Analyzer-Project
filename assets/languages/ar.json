@@ -36,6 +36,7 @@
   "cal": "سعر /غرام",
   "photo": "الصورة",
   "saveFoodDetails": "حفظ",
+  "uploadPhoto": "تحميل الصورة",
   "fruits": "فواكه",
   "fish": "أسماك",
   "carbohydrate": "كربوهيدرات",
@@ -66,5 +67,6 @@
   "updatedSuccessfully": "تم تعديل الطعام بنجاح",
   "deletedSuccessfully": "تم حذف الطعام بنجاح",
   "currentStatus": "الحالة الحالية",
-  "oldStatus": "الحالة القديمة"
+  "oldStatus": "الحالة القديمة",
+  "addStatus": "تم اضافة حالتك الجديدة بنجاح"
 }

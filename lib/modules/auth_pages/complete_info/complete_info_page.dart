@@ -1,4 +1,5 @@
 import 'package:bmi_project/helpers/route_helper.dart';
+import 'package:bmi_project/modles/bmi_status.dart';
 import 'package:bmi_project/modles/user_data.dart';
 import 'package:bmi_project/modules/auth_pages/complete_info/shared_radio.dart';
 import 'package:bmi_project/providers/app_provider.dart';
@@ -102,7 +103,7 @@ class CompleteInfoPage extends StatelessWidget {
                             onTap: () async {
                               await provider.pickDateOfBirth(context);
                             },
-                            child: DefaultContainer(text: provider.dateOfBirth,)),
+                            child: DefaultContainer(text: provider.dateOfBirth.toString(),)),
                       ),
                     ],
                   ),
@@ -122,6 +123,15 @@ class CompleteInfoPage extends StatelessWidget {
                       );
                       authProvider.updateUserData(userData);
                       authProvider.addUserTOFireStore();
+                      /*authProvider.addBMIStatusTOFireStore(
+                        BMIStatus(
+                            userId: authProvider.userData.id,
+                            height: provider.length,
+                            weight: provider.weight,
+                            status: authProvider.calculateBMIStatus(authProvider.userData, provider.weight, provider.length),
+                            date: DateTime.now().toString(),
+                            time: TimeOfDay.now().format(context))
+                      );*/
                       RouteHelper.routeHelper.goToPageWithReplacement(HomePage.routeName);
                     },
                     child: Text('saveDataBtn').tr(),

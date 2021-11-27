@@ -45,7 +45,7 @@ class NewRecordPage extends StatelessWidget {
                         crossAxisCount: 2,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 35,
-                        mainAxisExtent: 25),
+                        mainAxisExtent: provider.isArabic?30:25),
                     children: [
                       DefaultText(text: 'weight'),
                       Padding(

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class BMIStatus {
   String userId;
-  String height;
-  String weight;
+  double height;
+  double weight;
   String status;
   String date;
   String time;

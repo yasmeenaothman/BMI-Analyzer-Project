@@ -1,4 +1,5 @@
 import 'package:bmi_project/helpers/route_helper.dart';
+import 'package:bmi_project/helpers/shared_prefe_helper.dart';
 import 'package:bmi_project/helpers/theme_helper.dart';
 import 'package:bmi_project/modules/auth_pages/complete_info/complete_info_page.dart';
 import 'package:bmi_project/modules/auth_pages/login_page.dart';
@@ -13,13 +14,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'modules/food details/add_food_details_page.dart';
 import 'modules/food details/edit_food_details_page.dart';
 import 'modules/home_page/home_page.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await SharedPreferenceHelper.sharedHelper.initSharedPreferences();
   runApp(
     EasyLocalization(
         supportedLocales: [Locale('en'), Locale('ar')],
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
             HomePage.routeName: (context) => HomePage(),
           },
           ///I will do the custom dark theme soon///
-          theme: Provider.of<AppProvider>(context).isDark?ThemeData.dark():ThemeHelper.themeHelper.lightTheme,
+          theme: Provider.of<AppProvider>(context).isDark?ThemeHelper.themeHelper.darkTheme:ThemeHelper.themeHelper.lightTheme,
           home: FirebaseConfiguration());
   }
 }

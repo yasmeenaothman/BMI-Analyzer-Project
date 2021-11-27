@@ -35,6 +35,7 @@ class SplashPage extends StatelessWidget {
                   ),
                 ).tr(),
                 onPressed: () {
+                  //provider.logout();
                   provider.checkIsLogin();
                 },
               ),
