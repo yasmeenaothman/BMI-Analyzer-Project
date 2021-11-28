@@ -43,8 +43,8 @@ class DefaultContainerWithText extends StatelessWidget {
                       child: Center(
                           child: Text(
                               isWeight
-                                  ? provider.weight.toString()
-                                  : provider.length.toString(),
+                                  ? provider.weight.toInt().toString()
+                                  : provider.length.toInt().toString(),
                               style: Theme.of(context).textTheme.headline2))),
                   SizedBox(
                     width: 0,

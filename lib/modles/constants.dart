@@ -2,7 +2,7 @@ class Constants{
   static final String dbName = 'bmi.db';
   static final String foodTableName = 'food';
   static final String bmiStatusTableName = 'statuses';
-  static final String userIdColumnName = 'id';
+  static final String userIdColumnName = 'userId';
   static final String foodNameColumnName = 'name';
   static final String categoryColumnName = 'category';
   static final String caloryColumnName = 'calory';

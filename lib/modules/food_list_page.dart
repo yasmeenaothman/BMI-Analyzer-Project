@@ -99,7 +99,7 @@ class FoodListPage extends StatelessWidget {
                                             .headline2
                                             .merge(TextStyle(
                                                 fontWeight: FontWeight.w500,
-                                                color: Colors.grey[600])),
+                                                color: provider.isDark?Colors.white38:Colors.grey[600])),
                                         overflow: TextOverflow.ellipsis,
                                       ),
                                     ],

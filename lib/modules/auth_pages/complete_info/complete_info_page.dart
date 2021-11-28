@@ -113,7 +113,6 @@ class CompleteInfoPage extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       ///save info in firebase and transform to home(current state.....)
-                      //  +احسبي ال  BMI وضيفي الى جدول الحالات
                       UserData userData = UserData(
                         id: authProvider.userData.id,
                         name: authProvider.userData.name,
@@ -123,15 +122,18 @@ class CompleteInfoPage extends StatelessWidget {
                       );
                       authProvider.updateUserData(userData);
                       authProvider.addUserTOFireStore();
-                      /*authProvider.addBMIStatusTOFireStore(
+                      ///from get current user
+                      authProvider.getUserFromFireStore();
+                      authProvider.addBMIStatusTOFireStore(
                         BMIStatus(
                             userId: authProvider.userData.id,
                             height: provider.length,
                             weight: provider.weight,
                             status: authProvider.calculateBMIStatus(authProvider.userData, provider.weight, provider.length),
-                            date: DateTime.now().toString(),
+                            date: DateFormat('yMd',provider.isArabic?'ar':'en').format(DateTime.now()),
                             time: TimeOfDay.now().format(context))
-                      );*/
+                      );
+                      authProvider.getData();
                       RouteHelper.routeHelper.goToPageWithReplacement(HomePage.routeName);
                     },
                     child: Text('saveDataBtn').tr(),

@@ -118,7 +118,7 @@ class ThemeHelper {
       ),
       headline4: TextStyle(
           fontSize: 13.sp,
-          color: Colors.grey[600]
+          color: Colors.white38
       ),
       headline1: TextStyle(
           fontWeight: FontWeight.w500,

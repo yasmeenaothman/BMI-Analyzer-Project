@@ -78,7 +78,6 @@ class FireStoreHelper {
   Future<List<BMIStatus>> getAllBMIStatus(String userId) async {
     QuerySnapshot querySnapshot = await firebaseFireStore
         .collection("Statuses")
-        .where("userId", isEqualTo: userId).orderBy("date",)
         .get();
     List<BMIStatus> statuses =
     querySnapshot.docs.map((e) => BMIStatus.fromMap(e.data())).toList();

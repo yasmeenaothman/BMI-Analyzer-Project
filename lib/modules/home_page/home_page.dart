@@ -8,6 +8,7 @@ import 'package:bmi_project/providers/auth_provider.dart';
 import 'package:bmi_project/shared_widgets/shared_container.dart';
 import 'package:bmi_project/shared_widgets/shared_container_with_text.dart';
 import 'package:bmi_project/shared_widgets/shared_text.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class HomePage extends StatelessWidget {
             ],
           ),
           //Single Child
-          body: SingleChildScrollView(
+          body: authProvider.userData==null||authProvider.currentStatus==null?Center(child: CircularProgressIndicator()):SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -68,7 +69,7 @@ class HomePage extends StatelessWidget {
                       height: 10.h,
                     ),
                     //authProvider.currentStatus.status in below text
-                    DefaultContainer(text: '',height: 50.h,radius: 5,),
+                    DefaultContainer(fromStatus: true,text: '${authProvider.currentStatus.status} (${authProvider.changeStatus()})',height: 50.h,radius: 5,),
                     SizedBox(
                       height: 30.h,
                     ),
@@ -82,19 +83,48 @@ class HomePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5),
                           color: Theme.of(context).primaryColor,
                       ),
-                      child: Padding(
+                      child: authProvider.statuses.isEmpty?Text('noAddStatus'.tr(),style: Theme.of(context).textTheme.headline1,):Padding(
                         padding: const EdgeInsetsDirectional.only(top: 20,start: 35,end: 35,),
-                        child: ListView.separated(
+                        child:/*StreamBuilder(
+                            stream: Connectivity().onConnectivityChanged,
+                            builder: (BuildContext context,
+                                AsyncSnapshot<ConnectivityResult> snapShot) {
+                              if (!snapShot.hasData) return Center(child: CircularProgressIndicator());
+                              var result = snapShot.data;
+                              switch (result) {
+                                case ConnectivityResult.none:
+                                  print("no net");
+                                  return Center(child: Text("No Internet Connection!"));
+                                case ConnectivityResult.mobile:
+                                case ConnectivityResult.wifi:
+                                  print("yes net");
+                                  authProvider.checkLengthOfStatusFromSQL();
+                                  return ListView.separated(
+                                    physics: BouncingScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context,index)=>ItemListStyle(index: index,),
+                                    separatorBuilder: (context,index)=>SizedBox(
+                                      height: 15.h,
+                                    ),
+                                    /// there length-1 becouse the list will be without the current that exist in the last
+                                    itemCount: authProvider.statuses.length,
+                                  );
+                                default:
+                                  return Center(child: Text("No Internet Connection!"));
+                              }
+                            })*/ ListView.separated(
                           physics: BouncingScrollPhysics(),
                           shrinkWrap: true,
-                          itemBuilder: (context,index)=>ItemListStyle(),
+                          itemBuilder: (context,index)=>ItemListStyle(index: index,),
                           separatorBuilder: (context,index)=>SizedBox(
                             height: 15.h,
                           ),
-                          itemCount: 4,
+                          /// there length-1 becouse the list will be without the current that exist in the last
+                          itemCount: authProvider.statuses.length,
                         ),
+                      )
                       ),
-                    ),
+                    //),
                     SizedBox(
                       height: 30.h,
                     ),

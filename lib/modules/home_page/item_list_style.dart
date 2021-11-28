@@ -1,9 +1,14 @@
 import 'package:bmi_project/providers/auth_provider.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ItemListStyle extends StatelessWidget {
+  int index;
+  ItemListStyle({
+    @required this.index
+  });
   @override
   Widget build(BuildContext context) {
     return Consumer<AuthProvider>(
@@ -23,7 +28,8 @@ class ItemListStyle extends StatelessWidget {
                   Expanded(
                       child: Center(
                     child: Text(
-                      '20/10/2020',
+                      //DateFormat('yMd').format(DateFormat('yMd').parseStrict(provider.statuses[index].date)),
+                      '${provider.statuses[index].date}',
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
                   )),
@@ -34,7 +40,7 @@ class ItemListStyle extends StatelessWidget {
                   ),
                   Expanded(
                       child: Text(
-                    'Normal',
+                    provider.statuses[index].status,
                     style: Theme.of(context).textTheme.subtitle2,
                   ))
                 ],
@@ -55,7 +61,7 @@ class ItemListStyle extends StatelessWidget {
                   Expanded(
                       child: Center(
                     child: Text(
-                      '60 ' + 'kg'.tr(),
+                      '${provider.statuses[index].weight.toInt()} ' + 'kg'.tr(),
                       style: Theme.of(context).textTheme.subtitle2,
                     ),
                   )),
@@ -65,7 +71,7 @@ class ItemListStyle extends StatelessWidget {
                   ),
                   Expanded(
                       child: Text(
-                    '170 ' + 'cm'.tr(),
+                    '${provider.statuses[index].height.toInt()} ' + 'cm'.tr(),
                     style: Theme.of(context).textTheme.subtitle2,
                   ))
                 ],

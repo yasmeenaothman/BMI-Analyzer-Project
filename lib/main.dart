@@ -1,5 +1,6 @@
 import 'package:bmi_project/helpers/route_helper.dart';
 import 'package:bmi_project/helpers/shared_prefe_helper.dart';
+import 'package:bmi_project/helpers/sqfl_db_helper.dart';
 import 'package:bmi_project/helpers/theme_helper.dart';
 import 'package:bmi_project/modules/auth_pages/complete_info/complete_info_page.dart';
 import 'package:bmi_project/modules/auth_pages/login_page.dart';
@@ -21,6 +22,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await SharedPreferenceHelper.sharedHelper.initSharedPreferences();
+  await DbHelper.helper.initDatabase();
   runApp(
     EasyLocalization(
         supportedLocales: [Locale('en'), Locale('ar')],

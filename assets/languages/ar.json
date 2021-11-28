@@ -68,5 +68,16 @@
   "deletedSuccessfully": "تم حذف الطعام بنجاح",
   "currentStatus": "الحالة الحالية",
   "oldStatus": "الحالة القديمة",
-  "addStatus": "تم اضافة حالتك الجديدة بنجاح"
+  "addStatus": "تم اضافة حالتك الجديدة بنجاح",
+  "noAddStatus": "لم يتم اضافة حالات بعد",
+  "underWeight": " نقص بالوزن",
+  "normal": "وزن طبيعي",
+  "overWeight": "وزن زائد",
+  "obesity": "سمنة مفرطة",
+  "soBad": "سيء للغاية",
+  "beCareful": "كن حذرا",
+  "goAhead": "استمر",
+  "stillGood": "ما زال جيد",
+  "littleChanges": "تغيرات قليلة",
+  "whenConnect": "سيتم اضافة البيانات عند اتصالك بالانترنت "
 }

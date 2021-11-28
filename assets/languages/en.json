@@ -68,5 +68,16 @@
   "deletedSuccessfully": "Food successfully deleted",
   "currentStatus": "Current Status",
   "oldStatus": "Old Status",
-  "addStatus": "New Status successfully added"
+  "addStatus": "New Status successfully added",
+  "noAddStatus": "No Status added yet",
+  "underWeight": "Under Weight",
+  "normal": "Normal",
+  "overWeight": "Over Weight",
+  "obesity": "Obesity",
+  "soBad": "So Bad",
+  "beCareful": "Be Careful",
+  "goAhead": "Go Ahead",
+  "stillGood": "Still Good",
+  "littleChanges": "Little Changes",
+  "whenConnect": "Data will be added when you connect to internet "
 }

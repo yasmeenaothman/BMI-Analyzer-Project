@@ -77,7 +77,7 @@ class AppProvider extends ChangeNotifier {
             initialDate: DateTime.now(),
             firstDate: DateTime((DateTime.now().year) - 1),
             lastDate: DateTime((DateTime.now().year) + 1))
-        .then((value) => value == null ? '' : DateFormat.yMMMd().format(value));
+        .then((value) => value == null ? '' : DateFormat('yMd',isArabic?'ar':'en').format(value));
     notifyListeners();
   }
   pickDateOfBirth(BuildContext context) async {
@@ -96,6 +96,12 @@ class AppProvider extends ChangeNotifier {
       initialTime: TimeOfDay.now(),
     ).then((value) => value == null ? '' : value.format(context));
     notifyListeners();
+  }
+  cleanRecordFields(){
+    weight = 30;
+    length = 120;
+    date = '';
+    time = '';
   }
 
 }

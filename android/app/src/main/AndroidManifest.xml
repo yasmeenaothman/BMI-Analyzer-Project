@@ -2,7 +2,7 @@
     package="com.yasmeenOthmanSh.bmi_project">
    <application
         android:label="bmi_project"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

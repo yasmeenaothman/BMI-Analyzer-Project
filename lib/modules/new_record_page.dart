@@ -1,4 +1,9 @@
+import 'package:bmi_project/helpers/AuthHelper.dart';
+import 'package:bmi_project/helpers/route_helper.dart';
+import 'package:bmi_project/modles/bmi_status.dart';
+import 'package:bmi_project/modules/home_page/home_page.dart';
 import 'package:bmi_project/providers/app_provider.dart';
+import 'package:bmi_project/providers/auth_provider.dart';
 import 'package:bmi_project/shared_widgets/shared_container.dart';
 import 'package:bmi_project/shared_widgets/shared_container_with_text.dart';
 import 'package:bmi_project/shared_widgets/shared_text.dart';
@@ -19,8 +24,8 @@ class NewRecordPage extends StatelessWidget {
           ).tr(),
         ),
         //Single Child
-        body: Consumer<AppProvider>(
-          builder: (context, provider, x) => SingleChildScrollView(
+        body: Consumer2<AppProvider,AuthProvider>(
+          builder: (context, provider, authProvider,x) => SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Column(
@@ -91,6 +96,24 @@ class NewRecordPage extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       ///save info in firebase and transform to home(current state.....)
+                      ///sure that all fields not null
+                      if (provider.date != '' && provider.time != '') {
+                        authProvider.checkInternet(BMIStatus(
+                            userId: authProvider.userData.id,
+                            height: provider.length,
+                            weight: provider.weight,
+                            status: authProvider.calculateBMIStatus(
+                                authProvider.userData,
+                                provider.weight,
+                                provider.length),
+                            date: provider.date,
+                            time: provider.time));
+                        RouteHelper.routeHelper.goBackFromPage();
+                        provider.cleanRecordFields();
+                      }
+                      else{
+                        AuthHelper.authHelper.showToast('fillAllFields'.tr());
+                      }
                     },
                     child: Text('saveDataBtn').tr(),
                   ),
