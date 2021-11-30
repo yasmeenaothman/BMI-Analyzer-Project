@@ -28,7 +28,6 @@ class ItemListStyle extends StatelessWidget {
                   Expanded(
                       child: Center(
                     child: Text(
-                      //DateFormat('yMd').format(DateFormat('yMd').parseStrict(provider.statuses[index].date)),
                       '${provider.statuses[index].date}',
                       style: Theme.of(context).textTheme.subtitle2,
                     ),

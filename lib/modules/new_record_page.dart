@@ -96,9 +96,8 @@ class NewRecordPage extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       ///save info in firebase and transform to home(current state.....)
-                      ///sure that all fields not null
                       if (provider.date != '' && provider.time != '') {
-                        authProvider.checkInternet(BMIStatus(
+                        authProvider.addBMIStatusTOFireStore(BMIStatus(
                             userId: authProvider.userData.id,
                             height: provider.length,
                             weight: provider.weight,

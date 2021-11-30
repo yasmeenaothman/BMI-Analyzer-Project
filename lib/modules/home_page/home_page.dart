@@ -20,6 +20,7 @@ class HomePage extends StatelessWidget {
   static String routeName = 'HomePage';
   @override
   Widget build(BuildContext context) {
+    //Provider.of<AuthProvider>(context,listen: false).checkInternet();
     return Consumer2<AppProvider,AuthProvider>(
       builder: (context, provider,authProvider, x) => Scaffold(
           appBar: AppBar(
@@ -134,6 +135,7 @@ class HomePage extends StatelessWidget {
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
+                              authProvider.cleanFields();
                               RouteHelper.routeHelper.goToPage(AddFoodDetailsPage.routeName);
                             },
                             child: Text('addFood').tr(),
@@ -158,6 +160,7 @@ class HomePage extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         authProvider.getAllFoods();
+                        authProvider.checkInternet();
                         RouteHelper.routeHelper.goToPage(FoodListPage.routeName);
                       },
                       child: Text('viewFood').tr(),

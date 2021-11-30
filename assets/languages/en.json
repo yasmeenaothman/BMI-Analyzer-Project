@@ -79,5 +79,6 @@
   "goAhead": "Go Ahead",
   "stillGood": "Still Good",
   "littleChanges": "Little Changes",
-  "whenConnect": "Data will be added when you connect to internet "
+  "whenConnect": "The changes will be saved when you connect to internet ",
+  "noInternet": "No Internet -_-"
 }

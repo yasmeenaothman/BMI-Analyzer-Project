@@ -34,9 +34,11 @@ class AuthProvider extends ChangeNotifier{
   String foodImageUrlFromStorage;
   List<FoodDetails> foodLists = [];
   List<BMIStatus> statuses = [];
+  List<BMIStatus> sortedStatuses = [];
   List<BMIStatus> statusesFromSQL = [];
   Database db ;
   BMIStatus currentStatus;
+  bool isConnect;
   List<String> dropItems = [
     'fruits',
     'fish',
@@ -51,6 +53,7 @@ class AuthProvider extends ChangeNotifier{
     selectedCategory = dropItems.first;
     db = DbHelper.helper.database;
     getCurrentUser();
+    getAllBMIStatus();
     notifyListeners();
   }
   changeSelectedCategory(String value){
@@ -164,7 +167,7 @@ class AuthProvider extends ChangeNotifier{
     await FireStoreHelper.fireStoreHelper.addFoodTOFireStore(foodDetails);
     await cleanFields();
     await getAllFoods();
-    AuthHelper.authHelper.showToast('addedSuccessfully'.tr());
+    AuthHelper.authHelper.showToast(isConnect?'addedSuccessfully'.tr():'whenConnect'.tr());
   }
   addBMIStatusTOFireStore(BMIStatus bmiStatus) async{
     await FireStoreHelper.fireStoreHelper.addBMIStatusTOFireStore(bmiStatus);
@@ -175,7 +178,7 @@ class AuthProvider extends ChangeNotifier{
     await FireStoreHelper.fireStoreHelper.updateFoodTOFireStore(foodDetails);
     await cleanFields();
     await getAllFoods();
-    AuthHelper.authHelper.showToast('updatedSuccessfully'.tr());
+    AuthHelper.authHelper.showToast(isConnect?'updatedSuccessfully'.tr():'whenConnect'.tr());
   }
   getAllFoods() async{
     foodLists = await FireStoreHelper.fireStoreHelper.getAllFoods(user.uid);
@@ -188,6 +191,10 @@ class AuthProvider extends ChangeNotifier{
   }
   getAllBMIStatus() async{
     statuses = await FireStoreHelper.fireStoreHelper.getAllBMIStatus(user.uid);
+    notifyListeners();
+    statuses.sort((a,b){
+      return a.date.compareTo(b.date);
+    });
     currentStatus = statuses.last;
     notifyListeners();
   }
@@ -232,10 +239,10 @@ class AuthProvider extends ChangeNotifier{
     notifyListeners();
   }
   Future<FoodDetails> check(File file,bool isAdd) async{
-    if (nameFoodController.text != '' &&
+    if (nameFoodController.text!='' &&
+        caloryController.text!='' &&
         selectedCategory != null &&
-        caloryController.text != '' &&
-        isAdd?file!= null:true) {
+        (isAdd?file!= null:true)) {
       return await fillFoodInfo(isAdd);
     }
     else{
@@ -426,7 +433,7 @@ class AuthProvider extends ChangeNotifier{
     print('statusesFromSQL.length = ${statusesFromSQL.length}');
     notifyListeners();
   }
-  checkInternet(BMIStatus bmiStatus) async{
+ /* checkInternet(BMIStatus bmiStatus) async{
     try {
       final result = await InternetAddress.lookup('example.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -437,14 +444,32 @@ class AuthProvider extends ChangeNotifier{
       print('not connected');
       insertBMIStatus(bmiStatus);
     }
+  }*/
+  checkInternet() async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        print('connected');
+        isConnect = true;
+      }
+    } on SocketException catch (_) {
+      print('not connected');
+      isConnect = false;
+      notifyListeners();
+    }
+    notifyListeners();
   }
-  checkLengthOfStatusFromSQL(){
-    if(statusesFromSQL!=null){
+ /* Future checkLengthOfStatusFromSQL() async{
+    if(statusesFromSQL.length!=0){
       statusesFromSQL.map((e) {
         addBMIStatusTOFireStore(e);
       });
-      deleteAllBMIStatus();
+      print('statusesFromSQL.length******************* = ${statusesFromSQL.length}');
+      print('statuses length******************* = ${statuses.length}');
+      //deleteAllBMIStatus();
     }
-    print('statusesFromSQL.length = ${statusesFromSQL.length}');
-  }
+    else{
+      print('/////////no item in sql////////');
+    }
+  }*/
 }

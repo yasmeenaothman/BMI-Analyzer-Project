@@ -56,9 +56,14 @@ class FoodListPage extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Expanded(
-                                  child: Image.network(
+                                  child: authProvider.isConnect == true ?
+                                  Image.network(
                                     authProvider.foodLists[index].foodPhotoUrl,
-                                  ),
+                                  ):
+                                  Text(
+                                      'noInternet'.tr(),
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context).textTheme.headline1),
                                 ),
                                 VerticalDivider(
                                   thickness: 1.2,

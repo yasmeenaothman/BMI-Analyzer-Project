@@ -58,7 +58,9 @@ class DbHelper{
   }
   Future<List<BMIStatus>> getAllStatuses() async{
     List<Map<String,Object>> statuses = await database.query(Constants.bmiStatusTableName);
-    return statuses.map((e) => BMIStatus.fromMap(e)).toList();
+    List<BMIStatus> allStatuses= statuses.map((e) => BMIStatus.fromMap(e)).toList();
+    print('===========================${allStatuses.length}');
+    return allStatuses;
   }
   deleteAllBMIStatus() async{
     await database.delete(Constants.bmiStatusTableName);

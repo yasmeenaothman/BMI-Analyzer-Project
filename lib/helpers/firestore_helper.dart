@@ -36,14 +36,16 @@ class FireStoreHelper {
     return  querySnapshot.docs.length!=0?querySnapshot.docs[0]["email"]:null;
   }
   addFoodTOFireStore(FoodDetails foodDetails) async {
-    await firebaseFireStore
+    ///here i omit the wait keyword in order to config the offline persistence
+    firebaseFireStore
         .collection("Foods")
         .doc(foodDetails.name)
         .set(foodDetails.toMap());
   }
 
   updateFoodTOFireStore(FoodDetails foodDetails) async {
-    await firebaseFireStore
+    ///here i omit the wait keyword in order to config the offline persistence
+     firebaseFireStore
         .collection("Foods")
         .doc(foodDetails.name)
         .set(foodDetails.toMap());
@@ -67,17 +69,19 @@ class FireStoreHelper {
     return foods;
   }
   deleteFoodFromFireStore(String name) async{
-    await firebaseFireStore.collection("Foods").doc(name).delete();
+    ///here i omit the wait keyword in order to config the offline persistence
+    firebaseFireStore.collection("Foods").doc(name).delete();
   }
   addBMIStatusTOFireStore(BMIStatus bmiStatus) async {
-    await firebaseFireStore
+    ///here i omit the wait keyword in order to config the offline persistence
+    firebaseFireStore
         .collection("Statuses")
         .add(bmiStatus.toMap());
   }
 
   Future<List<BMIStatus>> getAllBMIStatus(String userId) async {
     QuerySnapshot querySnapshot = await firebaseFireStore
-        .collection("Statuses")
+        .collection("Statuses").where("userId", isEqualTo: userId)
         .get();
     List<BMIStatus> statuses =
     querySnapshot.docs.map((e) => BMIStatus.fromMap(e.data())).toList();
