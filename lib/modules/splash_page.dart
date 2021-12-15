@@ -12,6 +12,7 @@ class SplashPage extends StatelessWidget {
    /* Future.delayed(Duration(seconds: 3))
         .then((value) => provider.checkIsLogin()
     );*/
+
     return Scaffold(
       //Theme.of(context).primaryColor
       backgroundColor: HexColor('#1589D8'),

@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 class AuthHelper{
   AuthHelper._();
   static AuthHelper authHelper = AuthHelper._();
-
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   Future<bool> signUp(String email,String password) async{
     try{
@@ -49,6 +48,7 @@ class AuthHelper{
       showToast(e.toString());
       return false;
     }
+
   }
   User getCurrentUser(){
     return firebaseAuth.currentUser;
@@ -56,9 +56,9 @@ class AuthHelper{
   logout() async{
     await firebaseAuth.signOut();
   }
-  bool isVerifiedEmail(){
+  /*bool isVerifiedEmail(){
     return firebaseAuth.currentUser.emailVerified;
-  }
+  }*/
   showToast(String msg) {
     Fluttertoast.showToast(
       msg: msg,

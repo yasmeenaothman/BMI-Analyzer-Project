@@ -9,7 +9,7 @@ class FireStoreHelper {
 
   static FireStoreHelper fireStoreHelper = FireStoreHelper._();
   FirebaseFirestore firebaseFireStore = FirebaseFirestore.instance;
-  FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  //FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   addUserTOFireStore(UserData userData) async {
     await firebaseFireStore
         .collection("Users")
@@ -23,7 +23,6 @@ class FireStoreHelper {
         .doc(userData.id)
         .set(userData.toMap());
   }
-
   Future<UserData> getUserFromFireStore(String uid) async {
     DocumentSnapshot documentSnapshot =
         await firebaseFireStore.collection("Users").doc(uid).get();
@@ -45,7 +44,7 @@ class FireStoreHelper {
 
   updateFoodTOFireStore(FoodDetails foodDetails) async {
     ///here i omit the wait keyword in order to config the offline persistence
-     firebaseFireStore
+     await firebaseFireStore
         .collection("Foods")
         .doc(foodDetails.name)
         .set(foodDetails.toMap());
@@ -63,10 +62,7 @@ class FireStoreHelper {
         .collection("Foods")
         .where("userId", isEqualTo: userId)
         .get();
-    List<FoodDetails> foods =
-        querySnapshot.docs.map((e) => FoodDetails.fromMap(e.data())).toList();
-    print(foods.length);
-    return foods;
+    return querySnapshot.docs.map((e) => FoodDetails.fromMap(e.data())).toList();
   }
   deleteFoodFromFireStore(String name) async{
     ///here i omit the wait keyword in order to config the offline persistence
@@ -83,10 +79,7 @@ class FireStoreHelper {
     QuerySnapshot querySnapshot = await firebaseFireStore
         .collection("Statuses").where("userId", isEqualTo: userId)
         .get();
-    List<BMIStatus> statuses =
-    querySnapshot.docs.map((e) => BMIStatus.fromMap(e.data())).toList();
-    print(statuses.length);
-    return statuses;
+    return querySnapshot.docs.map((e) => BMIStatus.fromMap(e.data())).toList();
   }
 
 }

@@ -22,12 +22,16 @@ class TextFieldWithStyle extends StatelessWidget {
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
           label: isAdd?null:Text(controller.text),
-          enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide.none,
-            ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide.none
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(0),
           ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.white),
+            borderRadius: BorderRadius.circular(0),
+          )/*OutlineInputBorder(
+            borderSide: BorderSide.none
+          )*/,
         ),
       ),
     );

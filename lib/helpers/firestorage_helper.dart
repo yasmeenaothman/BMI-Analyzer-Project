@@ -13,5 +13,4 @@ class FireStorageHelper{
     String imageUrl = await reference.getDownloadURL();
     return imageUrl;
   }
-
 }

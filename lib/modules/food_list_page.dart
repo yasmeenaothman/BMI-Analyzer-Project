@@ -59,55 +59,62 @@ class FoodListPage extends StatelessWidget {
                                   child: authProvider.isConnect == true ?
                                   Image.network(
                                     authProvider.foodLists[index].foodPhotoUrl,
+                                    fit: BoxFit.fill,
                                   ):
                                   Text(
                                       'noInternet'.tr(),
                                       textAlign: TextAlign.center,
                                       style: Theme.of(context).textTheme.headline1),
                                 ),
-                                VerticalDivider(
-                                  thickness: 1.2,
-                                  color: Theme.of(context).primaryColor,
+                                SizedBox(
+                                  width: 0,
+                                  child: VerticalDivider(
+                                    thickness: 1.2,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
                                 ),
                                 Expanded(
                                   flex: 2,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text(
-                                        authProvider.foodLists[index].name,
-                                        style:
-                                            Theme.of(context).textTheme.subtitle1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      SizedBox(
-                                        height: 3.h,
-                                      ),
-                                      Text(
-                                        authProvider.foodLists[index].category,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline4
-                                            .merge(TextStyle(
-                                                fontWeight: FontWeight.w500)),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      SizedBox(
-                                        height: 3.h,
-                                      ),
-                                      Text(
-                                          authProvider.foodLists[index].calory.toString() + 'cal'.tr(),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline2
-                                            .merge(TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                color: provider.isDark?Colors.white38:Colors.grey[600])),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ],
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.only(start: 10),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          authProvider.foodLists[index].name,
+                                          style:
+                                              Theme.of(context).textTheme.subtitle1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(
+                                          height: 3.h,
+                                        ),
+                                        Text(
+                                          authProvider.foodLists[index].category,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline4
+                                              .merge(TextStyle(
+                                                  fontWeight: FontWeight.w500)),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(
+                                          height: 3.h,
+                                        ),
+                                        Text(
+                                            authProvider.foodLists[index].calory.toString() + 'cal'.tr(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline2
+                                              .merge(TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  color: provider.isDark?Colors.white38:Colors.grey[600])),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Expanded(
@@ -131,7 +138,7 @@ class FoodListPage extends StatelessWidget {
                                           style: ButtonStyle(
                                               minimumSize:
                                                   MaterialStateProperty.all<Size>(
-                                                      Size(double.infinity, 25.h)),
+                                                      Size(double.infinity, 30.h)),
                                               padding: MaterialStateProperty.all<
                                                       EdgeInsets>(
                                                   EdgeInsets.symmetric(

@@ -54,8 +54,8 @@ class SharedAddAndEditStyle extends StatelessWidget {
                     physics: BouncingScrollPhysics(),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 35,
+                        crossAxisSpacing: 15.h,
+                        mainAxisSpacing: 35.w,
                         mainAxisExtent: provider.isArabic?30:25),
                     children: [
                       DefaultText(text: 'name'),

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:bmi_project/helpers/AuthHelper.dart';
+import 'package:bmi_project/helpers/calculation_method_helper.dart';
 import 'package:bmi_project/helpers/firestorage_helper.dart';
 import 'package:bmi_project/helpers/firestore_helper.dart';
 import 'package:bmi_project/helpers/route_helper.dart';
@@ -53,7 +54,7 @@ class AuthProvider extends ChangeNotifier{
     selectedCategory = dropItems.first;
     db = DbHelper.helper.database;
     getCurrentUser();
-    getAllBMIStatus();
+    //getAllBMIStatus();
     notifyListeners();
   }
   changeSelectedCategory(String value){
@@ -167,7 +168,7 @@ class AuthProvider extends ChangeNotifier{
     await FireStoreHelper.fireStoreHelper.addFoodTOFireStore(foodDetails);
     await cleanFields();
     await getAllFoods();
-    AuthHelper.authHelper.showToast(isConnect?'addedSuccessfully'.tr():'whenConnect'.tr());
+    //AuthHelper.authHelper.showToast(isConnect?'addedSuccessfully'.tr():'whenConnect'.tr());
   }
   addBMIStatusTOFireStore(BMIStatus bmiStatus) async{
     await FireStoreHelper.fireStoreHelper.addBMIStatusTOFireStore(bmiStatus);
@@ -178,10 +179,11 @@ class AuthProvider extends ChangeNotifier{
     await FireStoreHelper.fireStoreHelper.updateFoodTOFireStore(foodDetails);
     await cleanFields();
     await getAllFoods();
-    AuthHelper.authHelper.showToast(isConnect?'updatedSuccessfully'.tr():'whenConnect'.tr());
+    //AuthHelper.authHelper.showToast(isConnect?'updatedSuccessfully'.tr():'whenConnect'.tr());
   }
   getAllFoods() async{
     foodLists = await FireStoreHelper.fireStoreHelper.getAllFoods(user.uid);
+    foodLists = foodLists.reversed.toList();
     notifyListeners();
   }
   deleteFoodFromFireStore(String name) async{
@@ -196,6 +198,8 @@ class AuthProvider extends ChangeNotifier{
       return a.date.compareTo(b.date);
     });
     currentStatus = statuses.last;
+    statuses.removeLast();
+    statuses = statuses.reversed.toList();
     notifyListeners();
   }
   Future<FoodDetails> fillFoodInfo(bool isAdd) async {
@@ -255,168 +259,13 @@ class AuthProvider extends ChangeNotifier{
     getAllFoods();
   }
   double calculateBMIValue(UserData user,double weight,double height){
-    double percentage;
-    int age = DateTime.now().year - DateFormat("yyyy").parseStrict(user.dateOfBirth).year;
-    if(age>=2 && age<=10){
-      percentage = 70/100;
-    }
-    else if(age>10 && age<=20 && user.gender =='male'){
-      percentage = 90/100;
-    }
-    else if(age>10 && age<=20 && user.gender =='female'){
-      percentage = 80/100;
-    }
-    else if(age>20){
-      percentage = 100/100;
-    }
-    return (weight/pow(height/100, 2))* percentage ;
+    return CalculationMethodHelper.calculateBMIValue(user, weight, height);
   }
   String calculateBMIStatus(UserData user,double weight,double height){
-    String bmiStatus;
-    double bmiValue = calculateBMIValue(user,weight,height);
-    if(bmiValue < 18.5){
-      bmiStatus = 'underWeight'.tr();
-    }
-    if(bmiValue >= 18.5 && bmiValue< 25){
-      bmiStatus = 'normal'.tr();
-    }
-    if(bmiValue >= 25 && bmiValue< 30){
-      bmiStatus = 'overWeight'.tr();
-    }
-    if(bmiValue >30){
-      bmiStatus = 'obesity'.tr();
-    }
-    return bmiStatus;
+    return CalculationMethodHelper.calculateBMIStatus(user, weight, height);
   }
   String changeStatus(){
-    String changeStatus ;
-    double difference;
-    double bmiValueBeforeLastStatus = calculateBMIValue(userData, currentStatus.weight, currentStatus.height);
-    BMIStatus lastStatus = statuses.last;
-    double bmiValueLastStatus = calculateBMIValue(userData,lastStatus.weight,lastStatus.height);
-    if(statuses.length>1){
-      BMIStatus beforeLastStatus = statuses[statuses.length-2];
-      bmiValueBeforeLastStatus = calculateBMIValue(userData,beforeLastStatus.weight,beforeLastStatus.height);
-      difference = bmiValueLastStatus -bmiValueBeforeLastStatus;
-    }
-    else{
-      difference = 0;
-    }
-    print(' difference= $difference ');
-    if(difference<-1){
-      if(currentStatus.status =='underWeight'.tr()){
-        changeStatus = 'soBad'.tr();
-      }
-      if(currentStatus.status =='normal'.tr()){
-        changeStatus = 'soBad'.tr();
-      }
-      if(currentStatus.status =='overWeight'.tr()){
-        changeStatus = 'beCareful'.tr();
-      }
-      if(currentStatus.status =='obesity'.tr()){
-        changeStatus = 'beCareful'.tr();
-      }
-    }
-    else if(difference>=-1 && difference <-0.6){
-      if(currentStatus.status =='underWeight'.tr()){
-        changeStatus = 'soBad'.tr();
-      }
-      if(currentStatus.status =='normal'.tr()){
-        changeStatus = 'beCareful'.tr();
-      }
-      if(currentStatus.status =='overWeight'.tr()){
-        changeStatus = 'goAhead'.tr();
-      }
-      if(currentStatus.status =='obesity'.tr()){
-        changeStatus = 'goAhead'.tr();
-      }
-    }
-    else if(difference>=-0.6 && difference <-0.3){
-      if(currentStatus.status =='underWeight'.tr()){
-        changeStatus = 'soBad'.tr();
-      }
-      if(currentStatus.status =='normal'.tr()){
-        changeStatus = 'beCareful'.tr();
-      }
-      if(currentStatus.status =='overWeight'.tr()){
-        changeStatus = 'stillGood'.tr();
-      }
-      if(currentStatus.status =='obesity'.tr()){
-        changeStatus = 'littleChanges'.tr();
-      }
-    }
-    else if(difference>=-0.3 && difference <0){
-      if(currentStatus.status =='underWeight'.tr()){
-        changeStatus = 'littleChanges'.tr();
-      }
-      if(currentStatus.status =='normal'.tr()){
-        changeStatus = 'littleChanges'.tr();
-      }
-      if(currentStatus.status =='overWeight'.tr()){
-        changeStatus = 'littleChanges'.tr();
-      }
-      if(currentStatus.status =='obesity'.tr()){
-        changeStatus = 'littleChanges'.tr();
-      }
-    }
-    else if(difference>=0 && difference <0.3){
-      if(currentStatus.status =='underWeight'.tr()){
-        changeStatus = 'littleChanges'.tr();
-      }
-      if(currentStatus.status =='normal'.tr()){
-        changeStatus = 'littleChanges'.tr();
-      }
-      if(currentStatus.status =='overWeight'.tr()){
-        changeStatus = 'littleChanges'.tr();
-      }
-      if(currentStatus.status =='obesity'.tr()){
-        changeStatus = 'beCareful'.tr();
-      }
-    }
-    else if(difference>=0.3 && difference <0.6){
-      if(currentStatus.status =='underWeight'.tr()){
-        changeStatus = 'stillGood'.tr();
-      }
-      if(currentStatus.status =='normal'.tr()){
-        changeStatus = 'beCareful'.tr();
-      }
-      if(currentStatus.status =='overWeight'.tr()){
-        changeStatus = 'beCareful'.tr();
-      }
-      if(currentStatus.status =='obesity'.tr()){
-        changeStatus = 'soBad'.tr();
-      }
-    }
-    else if(difference>=0.6 && difference <1){
-      if(currentStatus.status =='underWeight'.tr()){
-        changeStatus = 'goAhead'.tr();
-      }
-      if(currentStatus.status =='normal'.tr()){
-        changeStatus = 'beCareful'.tr();
-      }
-      if(currentStatus.status =='overWeight'.tr()){
-        changeStatus = 'soBad'.tr();
-      }
-      if(currentStatus.status =='obesity'.tr()){
-        changeStatus = 'soBad'.tr();
-      }
-    }
-    else if(difference>=1){
-      if(currentStatus.status =='underWeight'.tr()){
-        changeStatus = 'goAhead'.tr();
-      }
-      if(currentStatus.status =='normal'.tr()){
-        changeStatus = 'beCareful'.tr();
-      }
-      if(currentStatus.status =='overWeight'.tr()){
-        changeStatus = 'soBad'.tr();
-      }
-      if(currentStatus.status =='obesity'.tr()){
-        changeStatus = 'soBad'.tr();
-      }
-    }
-    print('changeStatus $changeStatus');
-    return changeStatus;
+    return CalculationMethodHelper.changeStatus(currentStatus: currentStatus,statuses: statuses,userData: userData);
   }
   deleteAllBMIStatus() async{
     await DbHelper.helper.deleteAllBMIStatus();
@@ -433,18 +282,6 @@ class AuthProvider extends ChangeNotifier{
     print('statusesFromSQL.length = ${statusesFromSQL.length}');
     notifyListeners();
   }
- /* checkInternet(BMIStatus bmiStatus) async{
-    try {
-      final result = await InternetAddress.lookup('example.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        print('connected');
-        addBMIStatusTOFireStore(bmiStatus);
-      }
-    } on SocketException catch (_) {
-      print('not connected');
-      insertBMIStatus(bmiStatus);
-    }
-  }*/
   checkInternet() async{
     try {
       final result = await InternetAddress.lookup('example.com');
@@ -459,6 +296,18 @@ class AuthProvider extends ChangeNotifier{
     }
     notifyListeners();
   }
+/* checkInternet(BMIStatus bmiStatus) async{
+    try {
+      final result = await InternetAddress.lookup('example.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        print('connected');
+        addBMIStatusTOFireStore(bmiStatus);
+      }
+    } on SocketException catch (_) {
+      print('not connected');
+      insertBMIStatus(bmiStatus);
+    }
+  }*/
  /* Future checkLengthOfStatusFromSQL() async{
     if(statusesFromSQL.length!=0){
       statusesFromSQL.map((e) {

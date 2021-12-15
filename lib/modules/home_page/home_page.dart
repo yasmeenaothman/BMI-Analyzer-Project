@@ -70,7 +70,7 @@ class HomePage extends StatelessWidget {
                       height: 10.h,
                     ),
                     //authProvider.currentStatus.status in below text
-                    DefaultContainer(fromStatus: true,text: '${authProvider.currentStatus.status} (${authProvider.changeStatus()})',height: 50.h,radius: 5,),
+                    DefaultContainer(fromStatus: true,text: authProvider.changeStatus()==''?'${authProvider.currentStatus.status}':'${authProvider.currentStatus.status} (${authProvider.changeStatus()})',height: 50.h,radius: 5,),
                     SizedBox(
                       height: 30.h,
                     ),
@@ -79,12 +79,13 @@ class HomePage extends StatelessWidget {
                       height: 10.h,
                     ),
                     Container(
+                      width: double.infinity,
                       height: MediaQuery.of(context).size.height / 3,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Theme.of(context).primaryColor,
                       ),
-                      child: authProvider.statuses.isEmpty?Text('noAddStatus'.tr(),style: Theme.of(context).textTheme.headline1,):Padding(
+                      child: authProvider.statuses.isEmpty?Center(child: Text('noAddStatus'.tr(),style: Theme.of(context).textTheme.headline1,)):Padding(
                         padding: const EdgeInsetsDirectional.only(top: 20,start: 35,end: 35,),
                         child:/*StreamBuilder(
                             stream: Connectivity().onConnectivityChanged,
@@ -113,14 +114,14 @@ class HomePage extends StatelessWidget {
                                 default:
                                   return Center(child: Text("No Internet Connection!"));
                               }
-                            })*/ ListView.separated(
+                            })*/
+                        ListView.separated(
                           physics: BouncingScrollPhysics(),
-                          shrinkWrap: true,
+                          //shrinkWrap: true,
                           itemBuilder: (context,index)=>ItemListStyle(index: index,),
                           separatorBuilder: (context,index)=>SizedBox(
                             height: 15.h,
                           ),
-                          /// there length-1 becouse the list will be without the current that exist in the last
                           itemCount: authProvider.statuses.length,
                         ),
                       )
