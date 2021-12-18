@@ -1,3 +1,4 @@
+
 import 'package:bmi_project/helpers/route_helper.dart';
 import 'package:bmi_project/modules/food%20details/add_food_details_page.dart';
 import 'package:bmi_project/modules/food_list_page.dart';
@@ -6,7 +7,6 @@ import 'package:bmi_project/modules/new_record_page.dart';
 import 'package:bmi_project/providers/app_provider.dart';
 import 'package:bmi_project/providers/auth_provider.dart';
 import 'package:bmi_project/shared_widgets/shared_container.dart';
-import 'package:bmi_project/shared_widgets/shared_container_with_text.dart';
 import 'package:bmi_project/shared_widgets/shared_text.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -70,7 +70,10 @@ class HomePage extends StatelessWidget {
                       height: 10.h,
                     ),
                     //authProvider.currentStatus.status in below text
-                    DefaultContainer(fromStatus: true,text: authProvider.changeStatus()==''?'${authProvider.currentStatus.status}':'${authProvider.currentStatus.status} (${authProvider.changeStatus()})',height: 50.h,radius: 5,),
+                    DefaultContainer(fromStatus: true,text: authProvider.changeStatus()==''?
+                    '${authProvider.calculateBMIStatus(authProvider.userData, authProvider.currentStatus.weight, authProvider.currentStatus.height)}':
+                    '${authProvider.calculateBMIStatus(authProvider.userData, authProvider.currentStatus.weight, authProvider.currentStatus.height)} (${authProvider.changeStatus()})',height: 50.h,radius: 5,),
+
                     SizedBox(
                       height: 30.h,
                     ),

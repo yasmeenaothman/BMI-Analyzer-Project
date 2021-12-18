@@ -1,3 +1,4 @@
+
 import 'package:bmi_project/helpers/route_helper.dart';
 import 'package:bmi_project/modles/bmi_status.dart';
 import 'package:bmi_project/modles/user_data.dart';
@@ -123,7 +124,7 @@ class CompleteInfoPage extends StatelessWidget {
                       authProvider.updateUserData(userData);
                       authProvider.addUserTOFireStore();
                       ///from get current user
-                      authProvider.getUserFromFireStore();
+                      //authProvider.getUserFromFireStore();
                       authProvider.addBMIStatusTOFireStore(
                         BMIStatus(
                             userId: authProvider.userData.id,
@@ -133,7 +134,7 @@ class CompleteInfoPage extends StatelessWidget {
                             date: DateFormat('yMd',provider.isArabic?'ar':'en').format(DateTime.now()),
                             time: TimeOfDay.now().format(context))
                       );
-                      authProvider.getData();
+                      //authProvider.getData();
                       RouteHelper.routeHelper.goToPageWithReplacement(HomePage.routeName);
                     },
                     child: Text('saveDataBtn').tr(),

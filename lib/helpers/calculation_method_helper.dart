@@ -68,10 +68,7 @@ class CalculationMethodHelper{
     print(' difference= $difference ');
     if(difference != null){
       if(difference<-1){
-        if(currentStatus.status ==underweight){
-          changeStatus = sB;
-        }
-        if(currentStatus.status ==normal){
+        if(currentStatus.status ==underweight||currentStatus.status ==normal){
           changeStatus = sB;
         }
         if(currentStatus.status ==overweight){
@@ -81,59 +78,32 @@ class CalculationMethodHelper{
           changeStatus = bC;
         }
       }
-      else if(difference>=-1 && difference <-0.6){
+      else if(difference>=-1 && difference <-0.3){
         if(currentStatus.status ==underweight){
           changeStatus = sB;
         }
         if(currentStatus.status ==normal){
           changeStatus = bC;
         }
-        if(currentStatus.status ==overweight){
+        if(difference>=-1 && difference <-0.6 && (currentStatus.status == overweight || currentStatus.status ==obesity)){
           changeStatus = gA;
         }
-        if(currentStatus.status ==obesity){
-          changeStatus = gA;
-        }
-      }
-      else if(difference>=-0.6 && difference <-0.3){
-        if(currentStatus.status ==underweight){
-          changeStatus = sB;
-        }
-        if(currentStatus.status ==normal){
-          changeStatus = bC;
-        }
-        if(currentStatus.status ==overweight){
+        if(difference>=-0.6 && difference <-0.3 && (currentStatus.status == overweight)){
           changeStatus = sG;
         }
-        if(currentStatus.status ==obesity){
+        if(difference>=-0.6 && difference <-0.3 && (currentStatus.status == obesity)){
           changeStatus = lC;
         }
       }
-      else if(difference>=-0.3 && difference <0){
-        if(currentStatus.status ==underweight){
+      else if(difference>=-0.3 && difference <0.3){
+        if(currentStatus.status ==underweight || currentStatus.status ==normal ||
+            currentStatus.status ==overweight){
           changeStatus = lC;
         }
-        if(currentStatus.status ==normal){
+        if(difference>=-0.3 && difference <0 && currentStatus.status ==obesity){
           changeStatus = lC;
         }
-        if(currentStatus.status ==overweight){
-          changeStatus = lC;
-        }
-        if(currentStatus.status ==obesity){
-          changeStatus = lC;
-        }
-      }
-      else if(difference>=0 && difference <0.3){
-        if(currentStatus.status ==underweight){
-          changeStatus = lC;
-        }
-        if(currentStatus.status ==normal){
-          changeStatus = lC;
-        }
-        if(currentStatus.status ==overweight){
-          changeStatus = lC;
-        }
-        if(currentStatus.status ==obesity){
+        if(difference>=0 && difference <0.3 && currentStatus.status ==obesity){
           changeStatus = bC;
         }
       }
@@ -141,41 +111,21 @@ class CalculationMethodHelper{
         if(currentStatus.status ==underweight){
           changeStatus = sG;
         }
-        if(currentStatus.status ==normal){
-          changeStatus = bC;
-        }
-        if(currentStatus.status ==overweight){
+        if(currentStatus.status ==normal || currentStatus.status ==overweight){
           changeStatus = bC;
         }
         if(currentStatus.status ==obesity){
           changeStatus = sB;
         }
       }
-      else if(difference>=0.6 && difference <1){
+      else if(difference>=0.6){
         if(currentStatus.status ==underweight){
           changeStatus = gA;
         }
         if(currentStatus.status ==normal){
           changeStatus = bC;
         }
-        if(currentStatus.status ==overweight){
-          changeStatus = sB;
-        }
-        if(currentStatus.status ==obesity){
-          changeStatus = sB;
-        }
-      }
-      else if(difference>=1){
-        if(currentStatus.status ==underweight){
-          changeStatus = gA;
-        }
-        if(currentStatus.status ==normal){
-          changeStatus = bC;
-        }
-        if(currentStatus.status ==overweight){
-          changeStatus = sB;
-        }
-        if(currentStatus.status ==obesity){
+        if(currentStatus.status ==overweight || currentStatus.status ==obesity){
           changeStatus = sB;
         }
       }

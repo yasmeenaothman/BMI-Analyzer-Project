@@ -30,8 +30,6 @@ class SignUpPage extends StatelessWidget {
                   child: DefaultTextField(
                     hint: 'name',
                     controller: provider.nameController,
-                    /* onSave: (v){},
-                    validate: (v){},*/
                   )
               ),
               SizedBox(height: 30.h,),
@@ -40,8 +38,6 @@ class SignUpPage extends StatelessWidget {
                   child: DefaultTextField(
                     hint: 'email',
                     controller: provider.emailController,
-                    /*onSave: (v){},
-                    validate: (v){},*/
                   )
               ),
               SizedBox(height: 35.h,),
@@ -51,8 +47,6 @@ class SignUpPage extends StatelessWidget {
                     isPass: true,
                     hint: 'pass',
                     controller: provider.passwordController,
-                    /*onSave: (v){},
-                    validate: (v){},*/
                   )
               ),
               SizedBox(height: 35.h,),
@@ -61,8 +55,6 @@ class SignUpPage extends StatelessWidget {
                   child: DefaultTextField(
                     hint: 're_pass',
                     controller: provider.rePasswordController,
-                    /*onSave: (v){},
-                    validate: (v){},*/
                   )
               ),
               SizedBox(height: 90.h,),

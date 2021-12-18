@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:bmi_project/helpers/AuthHelper.dart';
 import 'package:bmi_project/helpers/calculation_method_helper.dart';
 import 'package:bmi_project/helpers/firestorage_helper.dart';
@@ -54,7 +53,6 @@ class AuthProvider extends ChangeNotifier{
     selectedCategory = dropItems.first;
     db = DbHelper.helper.database;
     getCurrentUser();
-    //getAllBMIStatus();
     notifyListeners();
   }
   changeSelectedCategory(String value){
